@@ -7,3 +7,13 @@ We received our data from the [University of California San Diego's Amazon datas
 
 1. Run "python parse.py (data_file) (pickle_file)" to parse the data file into a Python dictionary, which is stored in a pickle file. The default names are "reviews_Amazon_Instant_Video_5.json.gz" and "products.pkl". This step only needs to be run once per dataset.
 2. Run "python sample.py (pickle_file)" to ...???. The default pickle file is "products.pkl".
+
+
+# Checklist
+
+- [X] Sentiment Analysis
+- [ ] Implementation of Algorithm
+- [ ] Convert probability output into an Amazon-style 5-star rating
+- [ ] Evaluation (compare predicted 5-star rating to real Amazon rating by training a regression model)
+- [ ] Write up a report / demo / presentation
+- [ ] Add [multiprocessing](https://docs.python.org/3/library/multiprocessing.html)
