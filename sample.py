@@ -7,28 +7,30 @@ print("Command-line args:" + str(args.__dict__))
 
 import pickle
 with open(args.pickle, 'rb') as f:
-    products = pickle.load(f)
+    R = pickle.load(f)
 
 # parameters determining the distribution P(R,U|S)
 sigma = 0.1 #probabilities that a positive user rates a positive product negatively; "noise factor"
 alpha = 0.3 #probabilities that a positive user rates a negative product positively
 beta  = 0.6 #probabilities that a negative user rates a positive product positively
 
-probabilities = {product: 0.5 for product in products}  # TO-DO: fix this (should NOT be 0.5 by default for all processes; we need to incorporate sentiment. Use equation 2 on page 226.)
 
-# TO-DO: fix this (equation 2 on page 226)
-def computeProbability(P, i):
-    return P[i]
+def sample():   # TO-DO: USE EQUATION 2 FOR SAMPLING
+    global random
+    return random()>0.5     # THIS IS A PLACEHOLDER
 
-import random
-random.seed(3)
+from random import seed, random
+seed(3)
+prob_R = {product: 0.5 for product in R}
 for k in range(1, args.rounds):
-    for product in products:
-        sample = random.random() < computeProbability(probabilities, product)     # randomly 1 or 0, based on probabilities
-        probabilities[product] = (r*probabilities[product] + sample)/(k+1)    # (avg of n+1 items) = ((avg of n items) + new item)/(n+1)
-print(probabilities)
+    for i in R:
+        sample_R_i = sample()   # draw sample
+        prob_R_i = (prob_R[i]) if sample_R_i else (1-prob_R[i]) # probability of drawing that sample
+        R_i_k = prob_R_i >= random()    # rejection sampling
+        prob_R[i] = (k*prob_R[i] + R_i_k)/(k+1)    # update probability based on sample
+print(prob_R)
 
 product_probabilities_pkl = "product_probabilities.pkl"
 with open(product_probabilities_pkl, 'wb') as f:
-    pickle.dump(products, f)
+    pickle.dump(prob_R, f)
 print("Parsed review data stored in " + product_probabilities_pkl)

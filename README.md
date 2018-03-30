@@ -40,14 +40,16 @@ Completed:
 Next Steps:
 - [ ] Fix probability calculation (sample.py line 12) (ask prof)
 - [ ] Calculate+print User General Sentiment, + incorporate user general sentiment into current probability calculations
+- [ ] Write a pipeline script that executes all programs
 
 Later:
 - [ ] Write up a report / demo / presentation (~4/30) (ask prof)
   - [ ] Create a visualization demonstrating our results
-    - [ ] Evaluate how many rounds of MCMC are needed to converge with our dataset
+    - [ ] Evaluate how many rounds of MCMC are needed to converge with our dataset ("mixing time")
     - [ ] Play around with sigma, alpha, and beta values and evaluate impact on model performance
 
 If time permits:
 - [ ] Add [multiprocessing](https://docs.python.org/3/library/multiprocessing.html) and run on larger dataset on cluster (cloud, school servers, etc.)
 - [ ] [Query real Amazon reviews to evaluate on from the Amazon API](https://python-amazon-product-api.readthedocs.io/en/latest/)
 - [ ] Manually expand Amazon dataset (manually check scores on Amazon website)
+- [ ] Explore using this model in the context of recommendation systems, customer segmentation, or retail portfolio optimization
