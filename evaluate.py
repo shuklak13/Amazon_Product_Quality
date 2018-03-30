@@ -1,4 +1,8 @@
-known_scores = {
+import pickle
+with open("product_probabilities.pkl", 'rb') as f:
+    probabilities = pickle.load(f)
+
+ratings = {
     "B006Y5BWQG": 4.7,
     "B007943UZ2": 3.8,
     "B00EDG3GQ2": 4.5,
@@ -12,7 +16,7 @@ known_scores = {
     "B00978LMCG": 2.4,
     "B003UU1UTC": 4.4,
     "B008XFAZRW": 4.5,
-    "B00IAKMVHM": 3.7
+    "B00IAKMVHM": 3.7,
     "B00DMLRI0O": 2.4,
     "B003FGKBSC": 4.7,
     "B008JSNIQS": 4.6,
@@ -20,3 +24,10 @@ known_scores = {
     "B007WPLZAK": 4.1,
     "B00EY7YGBO": 4.7
 }
+
+from numpy import array
+from scipy.stats import linregress
+product_probability_rating = [(product, probabilities[product], ratings[product]) for product in ratings]
+x = array([ppr[1] for ppr in product_probability_rating])
+y = array([ppr[2] for ppr in product_probability_rating])
+print(linregress(x,y))

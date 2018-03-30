@@ -9,15 +9,20 @@ import pickle
 with open(args.pickle, 'rb') as f:
     products = pickle.load(f)
 
-probability = {product: 0.5 for product in products}
-sigma = 0.1 #probability that a positive user rates a positive product negatively; "noise factor"
-alpha = 0.3 #probability that a positive user rates a negative product positively
-beta  = 0.6 #probability that a negative user rates a positive product positively
+probabilities = {product: 0.5 for product in products}  # TO-DO: fix this (should NOT be 0.5 by default for all processes; we need to incorporate sentiment. Use equation 2 on page 226.)
+sigma = 0.1 #probabilities that a positive user rates a positive product negatively; "noise factor"
+alpha = 0.3 #probabilities that a positive user rates a negative product positively
+beta  = 0.6 #probabilities that a negative user rates a positive product positively
 
 import random
 random.seed(3)
 for r in range(1, args.rounds):
     for product in products:
-        sample = random.random() < probability[product]     # randomly 1 or 0, based on probability
-        probability[product] = (r*probability[product] + sample)/(r+1)    # (avg of n+1 items) = ((avg of n items) + new item)/(n+1)
-print(probability)
+        sample = random.random() < probabilities[product]     # randomly 1 or 0, based on probabilities
+        probabilities[product] = (r*probabilities[product] + sample)/(r+1)    # (avg of n+1 items) = ((avg of n items) + new item)/(n+1)
+print(probabilities)
+
+product_probabilities_pkl = "product_probabilities.pkl"
+with open(product_probabilities_pkl, 'wb') as f:
+    pickle.dump(products, f)
+print("Parsed review data stored in " + product_probabilities_pkl)
