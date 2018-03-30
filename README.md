@@ -18,9 +18,9 @@ We received our data from the [University of California San Diego's Amazon datas
 
 # Code Execution
 
-1. Run "python parse.py (data_file) (pickle_file)" to parse the data file into a Python dictionary, which is stored in a pickle file. The defaults are "reviews_Amazon_Instant_Video_5.json.gz" and "products.pkl". This step only needs to be run once per dataset.
-2. Run "python sample.py (pickle_file) (rounds)" to run a MCMC sampling for the specified number of rounds to predict the probability that each product is "of quality". The defaults are "products.pkl" and 100.
-3. Run "python evaluate.py" to create a linear regression model measuring the strength of correlation between our model's output probabilities and the real Amazon 5-star score. This model could also be used as a rating-prediction score for any given user.
+1. Run `python parse.py [-d=<data_file>] [-p=<product_pickle_file>] [-u=<user_pickle_file>] [-s=<sentiment_pickle_file>]` to parse the input dataset (which must be stored in a file of type `.json.gz`). The data is processed and stored in three Python dictionaries - `product_pickle_file` is a mapping between each product and its reviews, `user_pickle_file` is a mapping between each user and his or her reviews, and `sentiment_pickle_file` is a mapping between each user-product tuple and the sentiment of the corresponding review. These dictionaries are stored in pickle files. The defaults are "reviews_Amazon_Instant_Video_5.json.gz", "products.pkl", "users.pkl", and "sentiments.pkl". This step only needs to be run once per dataset.
+2. Run `python sample.py [-p=<product_pickle_file>] [-u=<user_pickle_file>] [-s=<sentiment_pickle_file>] [-r=<rounds>]` to run a MCMC sampling for the specified number of rounds to predict the probability that each product is "of quality". The defaults are "products.pkl" and 100.
+3. Run `python evaluate.py` to create a linear regression model measuring the strength of correlation between our model's output probabilities and the real Amazon 5-star score. This model could also be used as a rating-prediction score for any given user.
 
 
 # Current Results
@@ -41,9 +41,10 @@ Next Steps:
 - [ ] Fix probability calculation (sample.py line 12) (ask prof)
 - [ ] Calculate+print User General Sentiment, + incorporate user general sentiment into current probability calculations
 - [ ] Write a pipeline script that executes all programs
+- [ ] Clean up the directory
 
 Later:
-- [ ] Write up a report / demo / presentation (~4/30) (ask prof)
+- [ ] Write up a report / demo / presentation (~4/30)
   - [ ] Create a visualization demonstrating our results
     - [ ] Evaluate how many rounds of MCMC are needed to converge with our dataset ("mixing time")
     - [ ] Play around with sigma, alpha, and beta values and evaluate impact on model performance
