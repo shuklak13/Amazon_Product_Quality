@@ -22,3 +22,4 @@ def start():
 def end():
     global done
     done = True
+    print()
