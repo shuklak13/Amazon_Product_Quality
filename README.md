@@ -12,8 +12,9 @@ We received our data from the [University of California San Diego's Amazon datas
 # Checklist
 
 - [X] Sentiment Analysis
-- [ ] Implementation of Algorithm
+- [X] Implementation of Algorithm (for product ratings)
 - [ ] Convert probability output into an Amazon-style 5-star rating
 - [ ] Evaluation (compare predicted 5-star rating to real Amazon rating by training a regression model)
 - [ ] Write up a report / demo / presentation
 - [ ] Add [multiprocessing](https://docs.python.org/3/library/multiprocessing.html)
+- [ ] Calculate user ratings (just print them out I guess? IDK what to use them for)
