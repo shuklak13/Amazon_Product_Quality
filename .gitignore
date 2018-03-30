@@ -1,3 +1,4 @@
 *.pyc
 notes.md
 *.pkl
+.vscode/settings.json
