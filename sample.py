@@ -10,6 +10,8 @@ with open(args.pickle, 'rb') as f:
     products = pickle.load(f)
 
 probabilities = {product: 0.5 for product in products}  # TO-DO: fix this (should NOT be 0.5 by default for all processes; we need to incorporate sentiment. Use equation 2 on page 226.)
+
+# parameters determining the distribution P(R,U|S)
 sigma = 0.1 #probabilities that a positive user rates a positive product negatively; "noise factor"
 alpha = 0.3 #probabilities that a positive user rates a negative product positively
 beta  = 0.6 #probabilities that a negative user rates a positive product positively
