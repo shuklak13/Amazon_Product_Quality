@@ -38,16 +38,16 @@ Completed:
 - [X] Evaluation (compare predicted 5-star rating to real Amazon rating by training a regression model)
 
 Next Steps:
-- [ ] Fix probability calculation (sample.py line 12)
+- [ ] Fix probability calculation (sample.py line 12) (ask prof)
 - [ ] Calculate+print User General Sentiment, + incorporate user general sentiment into current probability calculations
 
 Later:
-- [ ] Write up a report / demo / presentation
-- [ ] Create a visualization demonstrating our results
+- [ ] Write up a report / demo / presentation (~4/30) (ask prof)
+  - [ ] Create a visualization demonstrating our results
+    - [ ] Evaluate how many rounds of MCMC are needed to converge with our dataset
+    - [ ] Play around with sigma, alpha, and beta values and evaluate impact on model performance
 
 If time permits:
-- [ ] Evaluate how many rounds of MCMC are needed to converge with our dataset
-- [ ] Play around with sigma, alpha, and beta values and evaluate impact on model performance
-- [ ] Add [multiprocessing](https://docs.python.org/3/library/multiprocessing.html)
-- [ ] [Query real Amazon reviews to evaluate on](https://python-amazon-product-api.readthedocs.io/en/latest/)
-- [ ] Expand Amazon dataset (manually check scores on Amazon website)
+- [ ] Add [multiprocessing](https://docs.python.org/3/library/multiprocessing.html) and run on larger dataset on cluster (cloud, school servers, etc.)
+- [ ] [Query real Amazon reviews to evaluate on from the Amazon API](https://python-amazon-product-api.readthedocs.io/en/latest/)
+- [ ] Manually expand Amazon dataset (manually check scores on Amazon website)
