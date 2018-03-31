@@ -3,6 +3,7 @@ import argparse, pickle
 from random import seed, random
 from draw import draw_and_sample
 from auxiliary import prob, avg_of_abs_diffs
+from copy import deepcopy    
 
 # Read-in Command-Line Arguments
 cmdlnparser = argparse.ArgumentParser()
@@ -28,13 +29,14 @@ old_prob_R = {product: 0 for product in R}
 prob_R = {product: 0.5 for product in R}
 prob_U = {user: 0.5 for user in U}
 k = 1
-# for k in range(1, args.rounds):
 while avg_of_abs_diffs(old_prob_R, prob_R) > 0.01: # terminate when average difference falls below 1%
-    old_prob_R = prob_R
+    old_prob_R = deepcopy(prob_R)
     prob_R = draw_and_sample(R, prob_R, U, S, k, "R")
     prob_U = draw_and_sample(U, prob_U, R, S, k, "U")
-    print(k, avg_of_abs_diffs(old_prob_R, prob_R))
+    print("MCMC iteration", k, avg_of_abs_diffs(old_prob_R, prob_R))
     k += 1
+
+print("Converged after", k, "iterations")
 
 # Store prob_R and prob_U in pickle files
 product_probabilities_pkl = "pkl/product_probabilities.pkl"
