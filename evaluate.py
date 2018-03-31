@@ -27,7 +27,9 @@ ratings = {
 
 from numpy import array
 from scipy.stats import linregress
-product_probability_rating = [(product, probabilities[product], ratings[product]) for product in ratings]
+product_probability_rating = []
+for product in ratings:
+    product_probability_rating.append((product, probabilities[product], ratings[product]))
 x = array([ppr[1] for ppr in product_probability_rating])
 y = array([ppr[2] for ppr in product_probability_rating])
 print(linregress(x,y))

@@ -19,7 +19,7 @@ We received our data from the [University of California San Diego's Amazon datas
 # Code Execution
 
 1. Run `python parse.py [-d=<data_file>] [-p=<product_pickle_file>] [-u=<user_pickle_file>] [-s=<sentiment_pickle_file>]` to parse the input dataset (which must be stored in a file of type `.json.gz`). The data is processed and stored in three Python dictionaries - `product_pickle_file` is a mapping between each product and its reviews, `user_pickle_file` is a mapping between each user and his or her reviews, and `sentiment_pickle_file` is a mapping between each user-product tuple and the sentiment of the corresponding review. These dictionaries are stored in pickle files. The defaults are "reviews_Amazon_Instant_Video_5.json.gz", "products.pkl", "users.pkl", and "sentiments.pkl". This step only needs to be run once per dataset.
-2. Run `python sample.py [-p=<product_pickle_file>] [-u=<user_pickle_file>] [-s=<sentiment_pickle_file>] [-r=<rounds>]` to run a MCMC sampling for the specified number of rounds to predict the probability that each product is "of quality". The defaults are "products.pkl" and 100.
+2. Run `python sample.py [-p=<product_pickle_file>] [-u=<user_pickle_file>] [-s=<sentiment_pickle_file>] [-r=<rounds>]` to run a MCMC sampling for the specified number of rounds to predict the probability that each product is "of quality". The default files are the same as parse.py. The default number of rounds is 10.
 3. Run `python evaluate.py` to create a linear regression model measuring the strength of correlation between our model's output probabilities and the real Amazon 5-star score. This model could also be used as a rating-prediction score for any given user.
 
 
@@ -27,7 +27,7 @@ We received our data from the [University of California San Diego's Amazon datas
 
 The below results are from a linear regression betweeen the predicted probability that an arbitrary users would like an item, and the actual Amazon review score. This was done on 20 products.
 
-    LinregressResult(slope=0.53754379740098479, intercept=3.8027298531955478, rvalue=0.2402211636806181, pvalue=0.30764972157693871, stderr=0.51198766872208323)
+    LinregressResult(slope=0.16883116883116886, intercept=3.9571428571428569, rvalue=0.06235424378492388, pvalue=0.79397298668868033, stderr=0.63694866649954751)
 
 
 # Checklist
@@ -35,13 +35,12 @@ The below results are from a linear regression betweeen the predicted probabilit
 Completed:
 - [X] Sentiment Analysis
 - [X] Implementation of Algorithm (for product ratings)
-- [X] Evaluation (compare predicted 5-star rating to real Amazon rating by training a regression model)
 
 Next Steps:
-- [ ] Fix probability calculation (sample.py line 12) (ask prof)
-- [ ] Calculate+print User General Sentiment, + incorporate user general sentiment into current probability calculations
+- [ ] Test sample.py to verify that it executes
 - [ ] Write a pipeline script that executes all programs
 - [ ] Clean up the directory
+- [ ] Evaluation (compare predicted 5-star rating to real Amazon rating by training a regression model)
 
 Later:
 - [ ] Write up a report / demo / presentation (~4/30)

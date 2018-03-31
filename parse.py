@@ -38,4 +38,4 @@ with open(args.userpickle, 'wb') as f:
 with open(args.sentimentpickle, 'wb') as f:
     pickle.dump(sentiments, f)
 animation.end()
-print("Parsed review data stored in " + args.productpickle + ", " + args.userpickle + ", and " +  + args.sentimentpickle)
+print("Parsed review data stored in " + args.productpickle + ", " + args.userpickle + ", and " + args.sentimentpickle)
