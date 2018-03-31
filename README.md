@@ -19,7 +19,7 @@ We received our data from the [University of California San Diego's Amazon datas
 # Code Execution
 
 1. Run `python parse.py [-d=<data_file>] [-p=<product_pickle_file>] [-u=<user_pickle_file>] [-s=<sentiment_pickle_file>]` to parse the input dataset (which must be stored in a file of type `.json.gz`). The data is processed and stored in three Python dictionaries - `product_pickle_file` is a mapping between each product and its reviews, `user_pickle_file` is a mapping between each user and his or her reviews, and `sentiment_pickle_file` is a mapping between each user-product tuple and the sentiment of the corresponding review. These dictionaries are stored in pickle files. The defaults are "reviews_Amazon_Instant_Video_5.json.gz", "products.pkl", "users.pkl", and "sentiments.pkl". This step only needs to be run once per dataset.
-2. Run `python sample.py [-p=<product_pickle_file>] [-u=<user_pickle_file>] [-s=<sentiment_pickle_file>] [-r=<rounds>]` to run a MCMC sampling for the specified number of rounds to predict the probability that each product is "of quality". The default files are the same as parse.py. The default number of rounds is 10.
+2. Run `python sample.py [-p=<product_pickle_file>] [-u=<user_pickle_file>] [-s=<sentiment_pickle_file>] [-r=<rounds>]` to run a MCMC sampling for the specified number of rounds to predict the probability that each product is "of quality". The default files are the same as parse.py. The default number of rounds is 100.
 3. Run `python evaluate.py` to create a linear regression model measuring the strength of correlation between our model's output probabilities and the real Amazon 5-star score. This model could also be used as a rating-prediction score for any given user.
 
 If you would like to run all the Python processes in a single pipeline, you can run `python pipeline.py`.
@@ -27,9 +27,19 @@ If you would like to run all the Python processes in a single pipeline, you can 
 
 # Current Results
 
-The below results are from a linear regression betweeen the predicted probability that an arbitrary users would like an item, and the actual Amazon review score. This was done on 20 products.
+The below results are from a linear regression betweeen the predicted probability that an arbitrary users would like an item, and the actual Amazon review score. This was done on 20 randomly selected products from the category "Amazon Instant Video".
+
+Below is the result given 2 rounds of MCMC iteration.
+
+    LinregressResult(slope=-0.041666666666666803, intercept=4.072916666666667, rvalue=-0.013584148180261071, pvalue=0.95467202979783539, stderr=0.72290299111838063)
+
+Below is the result given 10 rounds of MCMC iteration.
 
     LinregressResult(slope=0.16883116883116886, intercept=3.9571428571428569, rvalue=0.06235424378492388, pvalue=0.79397298668868033, stderr=0.63694866649954751)
+
+Below is the result given 100 rounds of MCMC iteration.
+
+    LinregressResult(slope=-0.24999049465799789, intercept=4.2077440021291954, rvalue=-0.10792141951069513, pvalue=0.65062856775811984, stderr=0.54279473881966278)
 
 
 # Checklist
@@ -40,7 +50,7 @@ Completed:
 - [X] Evaluation (compare predicted 5-star rating to real Amazon rating by training a regression model)
 
 Next Steps:
-- [ ] Clean up the directory
+- [ ] Find Mixing Time
 
 Later:
 - [ ] Write up a report / demo / presentation (~4/30)

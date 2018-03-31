@@ -13,7 +13,7 @@ def __animate():
         sys.stdout.write('\r' + c*3 + ' loading ' + c*3)
         sys.stdout.flush()
         time.sleep(0.1)
-    sys.stdout.write('\rDone!     ')
+    #sys.stdout.write('\rDone!     ')
 
 def start():
     t = threading.Thread(target=__animate)

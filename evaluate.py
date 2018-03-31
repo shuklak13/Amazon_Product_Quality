@@ -1,5 +1,5 @@
 import pickle
-with open("product_probabilities.pkl", 'rb') as f:
+with open("pkl/product_probabilities.pkl", 'rb') as f:
     probabilities = pickle.load(f)
 
 ratings = {
