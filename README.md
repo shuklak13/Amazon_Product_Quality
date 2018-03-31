@@ -41,6 +41,8 @@ Below is the result given 100 rounds of MCMC iteration.
 
     LinregressResult(slope=-0.24999049465799789, intercept=4.2077440021291954, rvalue=-0.10792141951069513, pvalue=0.65062856775811984, stderr=0.54279473881966278)
 
+It takes 25 rounds of MCMC for "convergence", where convergence is defined as the point in time where the average absolute difference between consecutive computated marginal probabilities of R becomes less than 1%.
+
 
 # Checklist
 
@@ -48,17 +50,13 @@ Completed:
 - [X] Sentiment Analysis
 - [X] Implementation of Algorithm (for product ratings)
 - [X] Evaluation (compare predicted 5-star rating to real Amazon rating by training a regression model)
+- [X] Find Mixing Time
 
-Next Steps:
-- [ ] Find Mixing Time
-
-Later:
+Next Steps
 - [ ] Write up a report / demo / presentation (~4/30)
 - [ ] Create a visualization demonstrating our results
-  - [ ] Evaluate how many rounds of MCMC are needed to converge with our dataset ("mixing time")
-  - [ ] Play around with sigma, alpha, and beta values and evaluate impact on model performance
-
-If time permits:
+  - [ ] Visualize convergence/mixing time and relate it to rounds of MCMC
+  - [ ] Play around with sigma, alpha, and beta values and evaluate impact on model performance ("performance" = speed of mixing time, or accuracy of model)
 - [ ] Add [multiprocessing](https://docs.python.org/3/library/multiprocessing.html) and run on larger dataset on cluster (cloud, school servers, etc.)
 - [ ] [Query real Amazon reviews to evaluate on from the Amazon API](https://python-amazon-product-api.readthedocs.io/en/latest/)
 - [ ] Manually expand Amazon dataset (manually check scores on Amazon website)
