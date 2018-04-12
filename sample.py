@@ -4,6 +4,7 @@ from random import seed, random
 from draw import draw_and_sample
 from auxiliary import prob, avg_of_abs_diffs
 from copy import deepcopy    
+import time
 
 # Read-in Command-Line Arguments
 cmdlnparser = argparse.ArgumentParser()
@@ -29,6 +30,7 @@ old_prob_R = {product: 0 for product in R}
 prob_R = {product: 0.5 for product in R}
 prob_U = {user: 0.5 for user in U}
 k = 1
+t1 = time.time()
 while avg_of_abs_diffs(old_prob_R, prob_R) > 0.01: # terminate when average difference falls below 1%
     old_prob_R = deepcopy(prob_R)
     prob_R = draw_and_sample(R, prob_R, U, S, k, "R")
@@ -37,7 +39,7 @@ while avg_of_abs_diffs(old_prob_R, prob_R) > 0.01: # terminate when average diff
     k += 1
 
 print("Converged after", k, "iterations")
-
+print("time Taken ", time.time() - t1)
 # Store prob_R and prob_U in pickle files
 product_probabilities_pkl = "pkl/product_probabilities.pkl"
 with open(product_probabilities_pkl, 'wb') as f:
