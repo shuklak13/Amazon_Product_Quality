@@ -27,7 +27,7 @@ def draw(A, i, prob_A, B, S, predicting="R"):
         return sum([probability_clause(i) for i in A])
 
     p = probability_clause(i) / partition_function()
-    return random() > p
+    return random() < p
 
 # For every feature i in A, draw from P(A_i | A_(-i), B, S) and update P(A)
 def draw_and_sample(A, prob_A, B, S, k, predicting="R"):
