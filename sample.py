@@ -67,21 +67,8 @@ def draw(predicting, i):
 
     def probability_clause():
         return sumPos if sentiment(A[i]) else sumNeg
-        # return prob_A[i] * (
-        #     p_S_given_R_U[1, 0] * p_S_given_R_U[1, 1] if predicting == "R"
-        #     else p_S_given_R_U[0, 1] * p_S_given_R_U[1, 1]
-        # )
 
     def partition_function():
-        # return sum([probability_clause(i) for i in A])
-        # return prob_A[i] * p_S_given_R_U[1, 0] * p_S_given_R_U[1, 1] +
-        #    prob_A[i] p_S_given_R_U[0, 1] * p_S_given_R_U[1, 1]
-        # if predicting == "R":
-        #     return reduce(lambda x, y: x*y, [p_S_given_R_U(S[(U[k], 1)], 1, U[k]) for k = U.keys()], 1) + 
-        #     reduce(lambda x, y: x*y, [p_S_given_R_U(S[(U[k], 0)], 0, U[k]) for k = U.keys()], 1)
-        # else:
-        #     return reduce(lambda x, y: x*y, [p_S_given_R_U(S[(1, R[k])], R[k], 1) for k = R.keys()], 1) + 
-        #     reduce(lambda x, y: x*y, [p_S_given_R_U(S[(0, R[k])], R[k], 0) for k = R.keys()], 1)
         return sumPos + sumNeg
     
     A = R
@@ -120,7 +107,7 @@ def MCMCAlgo():
         old_prob_R = deepcopy(prob_R)
         prob_R = draw_and_sample(R, k, prob_R, "R")
         prob_U = draw_and_sample(U, k, prob_U, "U")
-        print("MCMC iteration", k, avg_of_abs_diffs(old_prob_R, prob_R))
+        print("MCMC iteration", k, "\tAverage of Absolute Difference:", avg_of_abs_diffs(old_prob_R, prob_R))
         k += 1
         i = i+1
     print("Converged after", k, "iterations")
