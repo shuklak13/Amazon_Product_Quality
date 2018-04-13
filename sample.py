@@ -5,6 +5,9 @@ from auxiliary import prob, avg_of_abs_diffs
 from copy import deepcopy    
 import time
 from collections import Counter
+import sys
+if sys.version_info > (3, 2):
+    from functools import reduce
 
 # Read-in Command-Line Arguments
 cmdlnparser = argparse.ArgumentParser()

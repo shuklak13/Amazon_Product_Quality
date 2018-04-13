@@ -86,7 +86,7 @@ Completed:
 - [X] Add [multiprocessing](https://docs.python.org/3/library/multiprocessing.html)
 
 Next Steps
-- [ ] Write up a report / demo / presentation (~4/18)
+- [ ] Write up a report / demo (~4/18)
 - [ ] Create a visualization demonstrating our results
   - [ ] Visualize convergence/mixing time and relate it to rounds of MCMC
   - [ ] Play around with sigma, alpha, and beta values and evaluate impact on model performance ("performance" = speed of mixing time, or accuracy of model)
