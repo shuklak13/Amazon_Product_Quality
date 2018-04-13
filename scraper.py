@@ -33,5 +33,5 @@ if __name__ == "__main__":
         print(asin, "\t", ctr, "/", len(probabilities), rating, probabilities[asin])
     amzn_ratings_pkl = "pkl/amzn_ratings.pkl"
     with open(amzn_ratings_pkl, 'wb') as f:
-        pickle.dump(ratings, f)
+        pickle.dump(ratings, f, protocol = 2)
         
