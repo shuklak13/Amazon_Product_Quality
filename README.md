@@ -51,25 +51,14 @@ If you would like to run all the Python processes in a single pipeline, you can 
 
 # Current Results
 
-The below results are from a linear regression between the predicted probability that an arbitrary users would like an item, and the actual Amazon review score. This was done on 20 randomly selected products from the category "Amazon Instant Video". We manually found the videos from the Amazon Instant Video website and recorded their ratings. Not all videos in the dataset (which was from 2014) are still present on the Amazon website.
+The below results are from a linear regression between the predicted probability that an arbitrary users would like an item, and the actual Amazon review score. This was done on 708 scraped products from the category "Office Supplies". Not all products in the dataset (which was from 2014) are still present on the Amazon website.
 
 
 Below is the result given 10 rounds of MCMC iteration.
 
-    LinregressResult(slope=-0.09756557841102093, intercept=4.269522551424797, rvalue=-0.21483692802155377, pvalue=0.3630327541904286, stderr=0.10454189364662447)
-    
-Below is the result given 20 rounds of MCMC iteration.
+    LinregressResult(slope=0.015109064081682277, intercept=3.9670587003455151, rvalue=0.049427499036819499, pvalue=0.18896087229517064, stderr=0.011490407201475823)
 
-	LinregressResult(slope=-0.05931588494428614, intercept=4.185579165586939, rvalue=-0.11676888677816905, pvalue=0.6239466389292054, stderr=0.11891221102931385)
-
-Below is the result given 30 rounds of MCMC iteration.
-
-    LinregressResult(slope=-0.0787656802048556, intercept=4.229191922466046, rvalue=-0.15344701040967157, pvalue=0.51834909678057, stderr=0.1195551370112885)
-
-    
-Below is the result given 40 rounds of MCMC iteration.
-
-    LinregressResult(slope=-0.04811300253531327, intercept=4.16148134733792, rvalue=-0.09175607765155108, pvalue=0.7004322472170617, stderr=0.12307091424238395)
+We had a correlation coefficient of `0.0494274990368`.
 
 It takes 30 rounds of MCMC for "convergence", where convergence is defined as the point in time where the average absolute difference between consecutive computated marginal probabilities of R becomes less than 1%.
 
