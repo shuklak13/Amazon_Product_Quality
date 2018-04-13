@@ -30,6 +30,13 @@ In this approach, we iteratively sample a positivity for every brand R and every
 As we can see, each brand's probability of positivity is independent of all other brands. We must take the product of all reviews in S belonging to a particular brand in R, and we must sum up over both possible values of a brand reputation (positive or negative, so only 2 values). So, the computation of a single brand's reputation in a single iteration of MCMC should be O(n), for the possible number of users who reviewed the product. Since there are m products, the total time complexity should be O(mni), where i is the number of iterations.
 
 
+# Extra Variables
+
+Our application computes a "reputation" for every product given the text of reviews that users provide on products. In reality, Amazon already has a metric for this - 5-star ratings. Given the 5-star rating system with adequate spam detection, a reputation inference system may not be useful. Nevertheless, it is interesting to preidct a product's reputation exclusively using text.
+
+It would be interesting to analyze how reputation is correlated with genre as well. It is conventional wisdom that comedies are less reputed than 
+
+
 # Data
 
 We received our data from the [University of California San Diego's Amazon dataset](http://jmcauley.ucsd.edu/data/amazon/). In particular, the dataset we used was "reviews_Amazon_Instant_Video_5.json.gz", a set of reviews for Amazon Instant Video content, but our technique should work on any of the 5-core datasets they provided.
@@ -46,7 +53,7 @@ If you would like to run all the Python processes in a single pipeline, you can 
 
 # Current Results
 
-The below results are from a linear regression betweeen the predicted probability that an arbitrary users would like an item, and the actual Amazon review score. This was done on 20 randomly selected products from the category "Amazon Instant Video".
+The below results are from a linear regression between the predicted probability that an arbitrary users would like an item, and the actual Amazon review score. This was done on 20 randomly selected products from the category "Amazon Instant Video". We manually found the videos from the Amazon Instant Video website and recorded their ratings. Not all videos in the dataset (which was from 2014) are still present on the Amazon website.
 
 Below is the result given 2 rounds of MCMC iteration.
 
@@ -61,6 +68,8 @@ Below is the result given 100 rounds of MCMC iteration.
     LinregressResult(slope=-0.24999049465799789, intercept=4.2077440021291954, rvalue=-0.10792141951069513, pvalue=0.65062856775811984, stderr=0.54279473881966278)
 
 It takes 25 rounds of MCMC for "convergence", where convergence is defined as the point in time where the average absolute difference between consecutive computated marginal probabilities of R becomes less than 1%.
+
+The model's predicted rating after 100 rounds of MCMC is poorly correlated with the true 5-star ratings from Amazon Instant Video. There are multiple reasons why this could be the case. Our sentiment analysis model may have poorly predicted a review's sentiment. Our small test data sample may have been outliers in the population. Perhaps users factor in other confounding variables into their ratings that are independent of their enjoyment of the movie, such as the movie's prestige or its current Amazon rating.
 
 
 # Checklist
