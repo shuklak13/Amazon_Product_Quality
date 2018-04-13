@@ -19,15 +19,12 @@ def draw(A, i, prob_A, B, S, predicting="R"):
             p_S_given_R_U[1,0] * p_S_given_R_U[1,1] if predicting=="R"
             else p_S_given_R_U[0,1] * p_S_given_R_U[1,1]
         )
-                            # multiply(
-                            #     [prob(p_S_given_R_U[1, j], S[i, j]) for j in B]
-                            # )
 
     def partition_function():
         return sum([probability_clause(i) for i in A])
 
     p = probability_clause(i) / partition_function()
-    return random() > p
+    return random() < p
 
 # For every feature i in A, draw from P(A_i | A_(-i), B, S) and update P(A)
 def draw_and_sample(A, prob_A, B, S, k, predicting="R"):
