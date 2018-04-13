@@ -62,9 +62,6 @@ def draw(predicting, i):
             p_S_given_R_U[1, 0] * p_S_given_R_U[1, 1] if predicting == "R"
             else p_S_given_R_U[0, 1] * p_S_given_R_U[1, 1]
         )
-                            # multiply(
-                            #     [prob(p_S_given_R_U[1, j], S[i, j]) for j in B]
-                            # )
 
     def partition_function():
         return sum([probability_clause(i) for i in A])
@@ -108,6 +105,9 @@ def storeResults():
 
 
 if __name__ == "__main__":
+    print("running MCMC")
     MCMCAlgo()
+    print("storing results")
     storeResults()
+    print("finished!")
     
