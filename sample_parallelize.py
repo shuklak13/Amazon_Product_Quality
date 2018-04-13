@@ -27,12 +27,14 @@ with open(args.sentimentpickle, 'rb') as f:
 sigma = 0.1  # probabilities that a positive user rates a positive product negatively; "noise factor"
 alpha = 0.3  # probabilities that a positive user rates a negative product positively
 beta = 0.6  # probabilities that a negative user rates a positive product positively
-p_S_given_R_U = {
+p_S_1_given_R_U = {
     (0, 0): sigma ** 2,
     (0, 1): alpha,
     (1, 0): beta,
     (1, 1): 1 - sigma
 }
+def p_S_given_R_U(s, r, u):
+    return p_S_1_given_R_U[(r, u)] if s else 1-p_S_1_given_R_U[(r, u)]
 
 # MCMC Sampling Algorithm
 seed(3)
@@ -57,22 +59,43 @@ def draw_and_sample(A, k, prob_A, predicting="R"):
 
 def draw(predicting, i):
 
-    def probability_clause(i):
-        return prob_A[i] * (
-            p_S_given_R_U[1, 0] * p_S_given_R_U[1, 1] if predicting == "R"
-            else p_S_given_R_U[0, 1] * p_S_given_R_U[1, 1]
-        )
+    if predicting == "R":
+        sumPos = reduce(lambda x, y: x*y, [p_S_given_R_U(S[(U[k], 1)], 1, U[k]) for k in U.keys()])
+        sumNeg = reduce(lambda x, y: x*y, [p_S_given_R_U(S[(U[k], 0)], 0, U[k]) for k in U.keys()])
+    else:
+        sumPos = reduce(lambda x, y: x*y, [p_S_given_R_U(S[(1, R[k])], R[k], 1) for k in R.keys()])
+        sumNeg = reduce(lambda x, y: x*y, [p_S_given_R_U(S[(0, R[k])], R[k], 0) for k in R.keys()])
+
+    def probability_clause():
+        return sumPos if A[i].sentiment else sumNeg
+        # return prob_A[i] * (
+        #     p_S_given_R_U[1, 0] * p_S_given_R_U[1, 1] if predicting == "R"
+        #     else p_S_given_R_U[0, 1] * p_S_given_R_U[1, 1]
+        # )
 
     def partition_function():
-        return sum([probability_clause(i) for i in A])
+        #return sum([probability_clause(i) for i in A])
+        #return prob_A[i] * p_S_given_R_U[1, 0] * p_S_given_R_U[1, 1] +
+        #    prob_A[i] p_S_given_R_U[0, 1] * p_S_given_R_U[1, 1]
+        # if predicting == "R":
+        #     return reduce(lambda x, y: x*y, [p_S_given_R_U(S[(U[k], 1)], 1, U[k]) for k = U.keys()], 1) + 
+        #     reduce(lambda x, y: x*y, [p_S_given_R_U(S[(U[k], 0)], 0, U[k]) for k = U.keys()], 1)
+        # else:
+        #     return reduce(lambda x, y: x*y, [p_S_given_R_U(S[(1, R[k])], R[k], 1) for k = R.keys()], 1) + 
+        #     reduce(lambda x, y: x*y, [p_S_given_R_U(S[(0, R[k])], R[k], 0) for k = R.keys()], 1)
+        return sumPos + sumNeg
     
     A = R
     prob_A = prob_R
+    B = U
+    prob_B = prob_U
     if predicting == "U":
         prob_A = prob_U
         A = U
+        prob_B = prob_R
+        B = R
     
-    p = probability_clause(i) / partition_function()
+    p = probability_clause() / partition_function()
     return random() < p
 
 
