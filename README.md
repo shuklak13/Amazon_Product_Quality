@@ -51,13 +51,15 @@ Completed:
 - [X] Implementation of Algorithm (for product ratings)
 - [X] Evaluation (compare predicted 5-star rating to real Amazon rating by training a regression model)
 - [X] Find Mixing Time
+- [X] Add [multiprocessing](https://docs.python.org/3/library/multiprocessing.html)
 
 Next Steps
-- [ ] Write up a report / demo / presentation (~4/30)
+- [ ] Write up a report / demo / presentation (~4/18)
 - [ ] Create a visualization demonstrating our results
   - [ ] Visualize convergence/mixing time and relate it to rounds of MCMC
   - [ ] Play around with sigma, alpha, and beta values and evaluate impact on model performance ("performance" = speed of mixing time, or accuracy of model)
-- [ ] Add [multiprocessing](https://docs.python.org/3/library/multiprocessing.html) and run on larger dataset on cluster (cloud, school servers, etc.)
-- [ ] [Query real Amazon reviews to evaluate on from the Amazon API](https://python-amazon-product-api.readthedocs.io/en/latest/)
-- [ ] Manually expand Amazon dataset (manually check scores on Amazon website)
+- [ ] Bigger, better dataset
+  - [ ] Run on larger dataset on cluster (cloud, school servers, etc.)
+  - [ ] [Query real Amazon reviews to evaluate on from the Amazon API](https://python-amazon-product-api.readthedocs.io/en/latest/)
+  - [ ] Manually expand Amazon dataset (manually check scores on Amazon website)
 - [ ] Explore using this model in the context of recommendation systems, customer segmentation, or retail portfolio optimization
