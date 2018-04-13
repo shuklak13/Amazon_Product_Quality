@@ -55,21 +55,27 @@ If you would like to run all the Python processes in a single pipeline, you can 
 
 The below results are from a linear regression between the predicted probability that an arbitrary users would like an item, and the actual Amazon review score. This was done on 20 randomly selected products from the category "Amazon Instant Video". We manually found the videos from the Amazon Instant Video website and recorded their ratings. Not all videos in the dataset (which was from 2014) are still present on the Amazon website.
 
-Below is the result given 2 rounds of MCMC iteration.
-
-    LinregressResult(slope=-0.041666666666666803, intercept=4.072916666666667, rvalue=-0.013584148180261071, pvalue=0.95467202979783539, stderr=0.72290299111838063)
 
 Below is the result given 10 rounds of MCMC iteration.
 
-    LinregressResult(slope=0.16883116883116886, intercept=3.9571428571428569, rvalue=0.06235424378492388, pvalue=0.79397298668868033, stderr=0.63694866649954751)
+    LinregressResult(slope=-0.09756557841102093, intercept=4.269522551424797, rvalue=-0.21483692802155377, pvalue=0.3630327541904286, stderr=0.10454189364662447)
+    
+Below is the result given 20 rounds of MCMC iteration.
 
-Below is the result given 100 rounds of MCMC iteration.
+	LinregressResult(slope=-0.05931588494428614, intercept=4.185579165586939, rvalue=-0.11676888677816905, pvalue=0.6239466389292054, stderr=0.11891221102931385)
 
-    LinregressResult(slope=-0.24999049465799789, intercept=4.2077440021291954, rvalue=-0.10792141951069513, pvalue=0.65062856775811984, stderr=0.54279473881966278)
+Below is the result given 30 rounds of MCMC iteration.
 
-It takes 25 rounds of MCMC for "convergence", where convergence is defined as the point in time where the average absolute difference between consecutive computated marginal probabilities of R becomes less than 1%.
+    LinregressResult(slope=-0.0787656802048556, intercept=4.229191922466046, rvalue=-0.15344701040967157, pvalue=0.51834909678057, stderr=0.1195551370112885)
 
-The model's predicted rating after 100 rounds of MCMC is poorly correlated with the true 5-star ratings from Amazon Instant Video. There are multiple reasons why this could be the case. Our sentiment analysis model may have poorly predicted a review's sentiment. Our small test data sample may have been outliers in the population. Perhaps users factor in other confounding variables into their ratings that are independent of their enjoyment of the movie, such as the movie's prestige or its current Amazon rating.
+    
+Below is the result given 40 rounds of MCMC iteration.
+
+    LinregressResult(slope=-0.04811300253531327, intercept=4.16148134733792, rvalue=-0.09175607765155108, pvalue=0.7004322472170617, stderr=0.12307091424238395)
+
+It takes 30 rounds of MCMC for "convergence", where convergence is defined as the point in time where the average absolute difference between consecutive computated marginal probabilities of R becomes less than 1%.
+
+The model's predicted rating after 40 rounds of MCMC is poorly correlated with the true 5-star ratings from Amazon Instant Video. There are multiple reasons why this could be the case. Our sentiment analysis model may have poorly predicted a review's sentiment. Our small test data sample may have been outliers in the population. Perhaps users factor in other confounding variables into their ratings that are independent of their enjoyment of the movie, such as the movie's prestige or its current Amazon rating.
 
 
 # Checklist
