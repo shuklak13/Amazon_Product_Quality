@@ -32,9 +32,7 @@ As we can see, each brand's probability of positivity is independent of all othe
 
 # Extra Variables
 
-Our application computes a "reputation" for every product given the text of reviews that users provide on products. In reality, Amazon already has a metric for this - 5-star ratings. Given the 5-star rating system with adequate spam detection, a reputation inference system may not be useful. Nevertheless, it is interesting to preidct a product's reputation exclusively using text.
-
-It would be interesting to analyze how reputation is correlated with genre as well. It is conventional wisdom that comedies are less reputed than 
+Our application computes a "reputation" for every product given the text of reviews that users provide on products. In reality, Amazon already has a metric for this - 5-star ratings. Given the 5-star rating system with adequate spam detection, a reputation inference system may not be useful. Nevertheless, it is interesting to predict a product's reputation exclusively using text. This model could integrated into an ensemble model recommendation system, and we could expand the Markov field to include other variables to inference, such as the popularity of certain genres or the reputation of different retailers.
 
 
 # Data

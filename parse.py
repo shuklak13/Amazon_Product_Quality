@@ -7,7 +7,7 @@ sentiments = dict()
 
 # Read-in Command-Line Arguments
 cmdlnparser = argparse.ArgumentParser()
-cmdlnparser.add_argument('-d', '--data', help="data file containing Amazon review data (input", default="data/reviews_Amazon_Instant_Video_5.json.gz")
+cmdlnparser.add_argument('-d', '--data', help="data file containing Amazon review data (input", default="data/reviews_Office_Products_5.json.gz")
 cmdlnparser.add_argument('-p', '--productpickle', help="pickle file containing dictionary mapping each product to its reviews (output)", default="pkl/products.pkl")
 cmdlnparser.add_argument('-u', '--userpickle', help="pickle file containing dictionary mapping each user to his or her reviews (output)", default="pkl/users.pkl")
 cmdlnparser.add_argument('-s', '--sentimentpickle', help="pickle file containing dictionary mapping each user-product tuple to its sentiment score (output)", default="pkl/sentiments.pkl")
