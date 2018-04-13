@@ -5,6 +5,7 @@ import argparse, pickle
 from random import seed, random
 from functools import partial 
 from auxiliary import prob, avg_of_abs_diffs
+from collections import Counter
 from copy import deepcopy
 import sys
 if sys.version_info > (3, 2):
@@ -26,6 +27,7 @@ with open(args.userpickle, 'rb') as f:
 with open(args.sentimentpickle, 'rb') as f:
     S = pickle.load(f)
 
+# MCMC Sampling Algorithm
 # Parameters determining the distribution P(R,U|S)
 sigma = 0.1  # probabilities that a positive user rates a positive product negatively; "noise factor"
 alpha = 0.3  # probabilities that a positive user rates a negative product positively
@@ -36,14 +38,50 @@ p_S_1_given_R_U = {
     (1, 0): beta,
     (1, 1): 1 - sigma
 }
+
+
 def p_S_given_R_U(s, r, u):
-    return p_S_1_given_R_U[(r, u)] if s else 1-p_S_1_given_R_U[(r, u)]
+    return p_S_1_given_R_U[(r, u)] if s else 1 - p_S_1_given_R_U[(r, u)]
+
 
 # MCMC Sampling Algorithm
 seed(3)
 old_prob_R = {product: 0 for product in R}
 prob_R = {product: 0.5 for product in R}
 prob_U = {user: 0.5 for user in U}
+
+def sentiment(listOfReviewTuples):   # A = list of review tuples
+    sentimentList = [reviewTuple.sentiment for reviewTuple in listOfReviewTuples]
+    return Counter(sentimentList).most_common(1)[0][0]
+
+def draw(predicting, i):
+
+    if predicting == "R":
+        sumPos = reduce(lambda x, y: x * y, [p_S_given_R_U(S[(k, i)], 1, sentiment(U[k])) for k in U.keys() if (k, i) in S])
+        sumNeg = reduce(lambda x, y: x * y, [p_S_given_R_U(S[(k, i)], 0, sentiment(U[k])) for k in U.keys() if (k, i) in S])
+    else:
+        sumPos = reduce(lambda x, y: x * y, [p_S_given_R_U(S[(i, k)], sentiment(R[k]), 1) for k in R.keys() if (i, k) in S])
+        sumNeg = reduce(lambda x, y: x * y, [p_S_given_R_U(S[(i, k)], sentiment(R[k]), 0) for k in R.keys() if (i, k) in S])
+
+    def probability_clause():
+        return sumPos if sentiment(A[i]) else sumNeg
+
+    def partition_function():
+        return sumPos + sumNeg
+    
+    A = R
+    prob_A = prob_R
+    B = U
+    prob_B = prob_U
+    if predicting == "U":
+        prob_A = prob_U
+        A = U
+        prob_B = prob_R
+        B = R
+    
+    p = probability_clause() / partition_function()
+    return random() < p
+
 
 
 def draw_and_sample(A, k, prob_A, predicting="R"):
@@ -60,46 +98,6 @@ def draw_and_sample(A, k, prob_A, predicting="R"):
     return prob_A
 
 
-def draw(predicting, i):
-
-    if predicting == "R":
-        sumPos = reduce(lambda x, y: x*y, [p_S_given_R_U(S[(U[k], 1)], 1, U[k]) for k in U.keys()])
-        sumNeg = reduce(lambda x, y: x*y, [p_S_given_R_U(S[(U[k], 0)], 0, U[k]) for k in U.keys()])
-    else:
-        sumPos = reduce(lambda x, y: x*y, [p_S_given_R_U(S[(1, R[k])], R[k], 1) for k in R.keys()])
-        sumNeg = reduce(lambda x, y: x*y, [p_S_given_R_U(S[(0, R[k])], R[k], 0) for k in R.keys()])
-
-    def probability_clause():
-        return sumPos if A[i].sentiment else sumNeg
-        # return prob_A[i] * (
-        #     p_S_given_R_U[1, 0] * p_S_given_R_U[1, 1] if predicting == "R"
-        #     else p_S_given_R_U[0, 1] * p_S_given_R_U[1, 1]
-        # )
-
-    def partition_function():
-        #return sum([probability_clause(i) for i in A])
-        #return prob_A[i] * p_S_given_R_U[1, 0] * p_S_given_R_U[1, 1] +
-        #    prob_A[i] p_S_given_R_U[0, 1] * p_S_given_R_U[1, 1]
-        # if predicting == "R":
-        #     return reduce(lambda x, y: x*y, [p_S_given_R_U(S[(U[k], 1)], 1, U[k]) for k = U.keys()], 1) + 
-        #     reduce(lambda x, y: x*y, [p_S_given_R_U(S[(U[k], 0)], 0, U[k]) for k = U.keys()], 1)
-        # else:
-        #     return reduce(lambda x, y: x*y, [p_S_given_R_U(S[(1, R[k])], R[k], 1) for k = R.keys()], 1) + 
-        #     reduce(lambda x, y: x*y, [p_S_given_R_U(S[(0, R[k])], R[k], 0) for k = R.keys()], 1)
-        return sumPos + sumNeg
-    
-    A = R
-    prob_A = prob_R
-    B = U
-    prob_B = prob_U
-    if predicting == "U":
-        prob_A = prob_U
-        A = U
-        prob_B = prob_R
-        B = R
-    
-    p = probability_clause() / partition_function()
-    return random() < p
 
 
 def MCMCAlgo():
