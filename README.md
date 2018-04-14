@@ -72,7 +72,7 @@ Scatter Plot
 
 One of the common aspects related to MCMC- based inference algorithm with respect to performance evaluation is time complexity of sampling. To address this, we parallelize block-based MCMC due to conditional independency and compare to sequential version in terms of time taken. Speedup is a very common metric used in the field of parallelism. Speedup is determined as a ratio of time taken in a sequential algorithm to time taken in parallel algorithm with p processors. We are using 8 processors in parallel. 
 
-![alt text](https://github.com/shuklak13/Amazon_Product_Quality/blob/master/images/scatterplot.png)
+![alt text](https://github.com/shuklak13/Amazon_Product_Quality/blob/master/images/speedUp.png)
    
           
 
