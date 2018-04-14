@@ -64,6 +64,9 @@ It takes 30 rounds of MCMC for "convergence", where convergence is defined as th
 
 The model's predicted rating after 40 rounds of MCMC is poorly correlated with the true 5-star ratings from Amazon Instant Video. There are multiple reasons why this could be the case. Our sentiment analysis model may have poorly predicted a review's sentiment. Our small test data sample may have been outliers in the population. Perhaps users factor in other confounding variables into their ratings that are independent of their enjoyment of the movie, such as the movie's prestige or its current Amazon rating.
 
+Scatter Plot
+
+![alt text](https://github.com/shuklak13/Amazon_Product_Quality/blob/master/images/scatterplot.png)
 
 # Checklist
 
