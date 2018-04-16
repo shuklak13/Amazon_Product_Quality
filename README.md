@@ -68,6 +68,32 @@ Scatter Plot
 
 ![Scatterplot](https://github.com/shuklak13/Amazon_Product_Quality/blob/master/images/scatterplot.png)
 
+## Test Cases:
+
+1. For sigma = 0.1, alpha = 0.3, beta =  0.6
+    -   10 rounds, correlation is 0.0317650552114
+    -   20 rounds, correlation is 0.0347479106453
+    -   30 rounds, correlation is 0.0351023571345
+    -   40 rounds, correlation is 0.0337202571689
+    -   100 rounds, correlation is 0.0360805236603
+2. For sigma = 0.5, alpha = 0.5, beta =  0.5
+    -   10 rounds, correlation is 0.0317650552114
+    -   20 rounds, correlation is 0.0273848647798
+    -   30 rounds, correlation is 0.00285424424937
+    -   40 rounds, correlation is 0.0128539720687
+    -   50 rounds, correlation is 0.0270753175784
+3. For sigma = 0.2, alpha = 0.2, beta =  0.8
+    -   10 rounds, correlation is 0.0367868565372
+    -   20 rounds, correlation is 0.0419762437656
+    -   30 rounds, correlation is 0.0411693830939
+    -   40 rounds, correlation is 0.0400037235887
+4. For sigma = 0.7, alpha = 0.9, beta =  0.3
+    -   10 rounds, correlation is 0.0350938772052
+    -   20 rounds, correlation is 0.0444470982371
+    -   30 rounds, correlation is 0.044057186709
+    -   40 rounds, correlation is 0.0227733827952
+
+
 ## Performance Evaluation
 
 One of the common aspects related to MCMC- based inference algorithm with respect to performance evaluation is time complexity of sampling. To address this, we parallelize block-based MCMC due to conditional independency and compare to sequential version in terms of time taken. Speedup is a very common metric used in the field of parallelism. Speedup is determined as a ratio of time taken in a sequential algorithm to time taken in parallel algorithm with p processors. We are using 8 processors in parallel. 
