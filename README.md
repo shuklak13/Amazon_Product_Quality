@@ -64,7 +64,7 @@ It takes 30 rounds of MCMC for "convergence", where convergence is defined as th
 
 The model's predicted rating after 40 rounds of MCMC is poorly correlated with the true 5-star ratings from Amazon Instant Video. There are multiple reasons why this could be the case. Our sentiment analysis model may have poorly predicted a review's sentiment. Our small test data sample may have been outliers in the population. Perhaps users factor in other confounding variables into their ratings that are independent of their enjoyment of the movie, such as the movie's prestige or its current Amazon rating.
 
-Scatter Plot
+## Scatter Plot
 
 ![Scatterplot](https://github.com/shuklak13/Amazon_Product_Quality/blob/master/images/scatterplot.png)
 
@@ -110,14 +110,13 @@ Completed:
 - [X] Evaluation (compare predicted 5-star rating to real Amazon rating by training a regression model)
 - [X] Find Mixing Time
 - [X] Add [multiprocessing](https://docs.python.org/3/library/multiprocessing.html)
+- [X] Write up a report / demo (~4/18)
+- [X] Create a visualization demonstrating our results
+  - [X] Visualize convergence/mixing time and relate it to rounds of MCMC
+  - [X] Play around with sigma, alpha, and beta values and evaluate impact on model performance ("performance" = speed of mixing time, or accuracy of model)
+- [X] Bigger, better dataset
+  - [ ] Run on larger dataset on a cluster (AWS cloud, school servers, etc.)
+  - [X] [Query real Amazon reviews to evaluate on from the Amazon API](https://python-amazon-product-api.readthedocs.io/en/latest/)
 
-Next Steps
-- [ ] Write up a report / demo (~4/18)
-- [ ] Create a visualization demonstrating our results
-  - [ ] Visualize convergence/mixing time and relate it to rounds of MCMC
-  - [ ] Play around with sigma, alpha, and beta values and evaluate impact on model performance ("performance" = speed of mixing time, or accuracy of model)
-- [ ] Bigger, better dataset
-  - [ ] Run on larger dataset on cluster (cloud, school servers, etc.)
-  - [ ] [Query real Amazon reviews to evaluate on from the Amazon API](https://python-amazon-product-api.readthedocs.io/en/latest/)
-  - [ ] Manually expand Amazon dataset (manually check scores on Amazon website)
+Next Steps / Stretch Goals
 - [ ] Explore using this model in the context of recommendation systems, customer segmentation, or retail portfolio optimization
