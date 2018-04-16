@@ -17,7 +17,7 @@ Sentiment analysis is performed by the [Textblob](http://textblob.readthedocs.io
 
 A naive, brute force inference of reputation of brands (R) and positivity of users (U) given the sentiment of comments/reviews (S) can be seen below.
 
-![Probability of R given S](https://github.com/shuklak13/Amazon_Product_Quality/blob/master/images/P_R_given_S.JPG "Probability of R given S)
+![Probability of R given S](https://github.com/shuklak13/Amazon_Product_Quality/blob/master/images/P_R_given_S.JPG)
 
 Assume that there are m brands and n users. Then there are 2^(m+n) possible combinations of brand and user positivities. For each combination, we need to sum the probability of sentiment for each review. The number of reviews could be up to mn (one review per user-brand tuple). So, in total, the brute force computation could take O(mn * 2^(m+n)) time.
 
@@ -25,7 +25,7 @@ Assume that there are m brands and n users. Then there are 2^(m+n) possible comb
 
 In this approach, we iteratively sample a positivity for every brand R and every user U, using the previous sample's positivities as well as the sentiments of the reviews. The inference equations can be seen below.
 
-![Probability of MCMC](https://github.com/shuklak13/Amazon_Product_Quality/blob/master/images/P_MCMC.JPG_"Probability of MCMC)
+![Probability of MCMC](https://github.com/shuklak13/Amazon_Product_Quality/blob/master/images/P_MCMC.JPG)
 
 As we can see, each brand's probability of positivity is independent of all other brands. We must take the product of all reviews in S belonging to a particular brand in R, and we must sum up over both possible values of a brand reputation (positive or negative, so only 2 values). So, the computation of a single brand's reputation in a single iteration of MCMC should be O(n), for the possible number of users who reviewed the product. Since there are m products, the total time complexity should be O(mni), where i is the number of iterations.
 
@@ -66,13 +66,13 @@ The model's predicted rating after 40 rounds of MCMC is poorly correlated with t
 
 Scatter Plot
 
-![alt text](https://github.com/shuklak13/Amazon_Product_Quality/blob/master/images/scatterplot.png)
+![Scatterplot](https://github.com/shuklak13/Amazon_Product_Quality/blob/master/images/scatterplot.png)
 
 ## Performance Evaluation
 
 One of the common aspects related to MCMC- based inference algorithm with respect to performance evaluation is time complexity of sampling. To address this, we parallelize block-based MCMC due to conditional independency and compare to sequential version in terms of time taken. Speedup is a very common metric used in the field of parallelism. Speedup is determined as a ratio of time taken in a sequential algorithm to time taken in parallel algorithm with p processors. We are using 8 processors in parallel. 
 
-![alt text](https://github.com/shuklak13/Amazon_Product_Quality/blob/master/images/speedUp.png)
+![Speedup Results](https://github.com/shuklak13/Amazon_Product_Quality/blob/master/images/speedUp.png)
    
           
 
