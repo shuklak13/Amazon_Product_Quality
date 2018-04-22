@@ -97,7 +97,7 @@ The model's predicted rating after 40 rounds of MCMC is poorly correlated with t
     -   10 rounds, correlation is 0.101
     -   20 rounds, correlation is 0.167
     -   30 rounds, correlation is 0.201
-
+ 
 
 ## Performance Evaluation
 
