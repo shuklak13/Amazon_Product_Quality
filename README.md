@@ -10,6 +10,8 @@ Sentiment analysis is performed by the [Textblob](http://textblob.readthedocs.io
 
 [The original paper](https://dl.acm.org/citation.cfm?id=2492556) uses a much more involved ensemble sentiment analysis algorithm that we excluded in our model due to time constraints. The original paper also has an involved data cleaning phase that filters out brands and users with very few posts, as well as users with too many posts (spammers). We did not include this phase.
 
+![Probability of MCMC](https://github.com/shuklak13/Amazon_Product_Quality/blob/master/images/PGM.JPG)
+
 ## Data
 
 We received our training data from the [University of California San Diego's Amazon dataset](http://jmcauley.ucsd.edu/data/amazon/). In particular, the dataset we used was "reviews_Office_Products_5.json.gz", a set of reviews for office products on Amazon from 2014, but our technique should work on any of the Amazon datasets provided from the University of California San Diego. The dataset is approximately 50,000 reviews, with approximately 700 products. On average there are about 70 reviews per product.
@@ -20,7 +22,7 @@ Our testing data was scraped from Amazon's website using Python's `requests` lib
 
 # Mathematics and Time Complexity of the Model
 
-![Probability of MCMC](https://github.com/shuklak13/Amazon_Product_Quality/blob/master/images/PGM.JPG)
+
 
 ## Brute Force
 
