@@ -1,6 +1,6 @@
 # Description of Project
 
-Our project is based off the paper ["A Probabilistic Graphical Model for Brand Reputation Assessment in Social Networks"](https://dl.acm.org/citation.cfm?id=2492556), written by researchers at Northwestern University and presented at the 2013 IEEE/ACM International Conference on Advances in Social Networks Analysis and Mining. The paper proposes a probabilistic graphical model to measure "social brand reputation", a metric of how positively or negatively a "brand" is perceived on a social network. The paper uses a Facebook dataset, where "brands" include public pages, such as Barach Obama or Starbucks. Along with social brand reputation, the proposed model computes "user positivities", a metric of how positive or negative a user's posts are on the social network. Both social brand reputation and user positivities are modeled as hidden variables whose values are inferred from the sentiment of social media posts, which act as the observed variable. The inference is conducted via Markov Chain Monte Carlo sampling.
+Our project is based off the paper ["A Probabilistic Graphical Model for Brand Reputation Assessment in Social Networks"](https://dl.acm.org/citation.cfm?id=2492556), written by researchers at Northwestern University and presented at the 2013 IEEE/ACM International Conference on Advances in Social Networks Analysis and Mining. The paper proposes a probabilistic graphical model to measure "social brand reputation", a metric of how positively or negatively a "brand" is perceived on a social network. The paper uses a Facebook dataset, where "brands" include public pages, such as Barack Obama or Starbucks. Along with social brand reputation, the proposed model computes "user positivities", a metric of how positive or negative a user's posts are on the social network. Both social brand reputation and user positivities are modeled as hidden variables whose values are inferred from the sentiment of social media posts, which act as the observed variable. The inference is conducted via Markov Chain Monte Carlo sampling.
 
 We aim to produce a similar model to the one described in the paper on an Amazon product review dataset. This dataset is a good fit, because just like in a social network, Amazon has "brands" (products) with "reputations" (5-star ratings) determined by "posts" (reviews) from "users". We can evaluate our model's success by comparing each product's "social brand reputation" with their real Amazon rating.
 
@@ -65,53 +65,36 @@ If you would like to run all the Python processes in a single pipeline, you can 
 # Current Results
 
 The below results are from a linear regression between the predicted probability that an arbitrary users would like an item, and the actual Amazon review score. This was done on 708 scraped products from the category "Office Supplies". Not all products in the dataset (which was from 2014) are still present on the Amazon website.
-
-
-Below is the result given 10 rounds of MCMC iteration.
-
-    LinregressResult(slope=0.015109064081682277, intercept=3.9670587003455151, rvalue=0.049427499036819499, pvalue=0.18896087229517064, stderr=0.011490407201475823)
     
 
 Below is the result after convergence (28 iterations).
 
 delta = 0.1 alpha = 0.3 beta = 0.6      
 
-    LinregressResult(slope=-0.023732681873079645, intercept=4.0749036003764365, rvalue=-0.06302239272455351, pvalue=0.07196984810324952, stderr=0.013172722412503874)
-
-We had a correlation coefficient of `-0.06302239`.
+We had a correlation coefficient of `0.353`.
 
 It takes 28 rounds of MCMC for "convergence", where convergence is defined as the point in time where the average absolute difference between consecutive computated marginal probabilities of R becomes less than 1%.
 
 The model's predicted rating after 40 rounds of MCMC is poorly correlated with the true 5-star ratings from Amazon Instant Video. There are multiple reasons why this could be the case. Our sentiment analysis model may have poorly predicted a review's sentiment. Our small test data sample may have been outliers in the population. Perhaps users factor in other confounding variables into their ratings that are independent of their enjoyment of the movie, such as the movie's prestige or its current Amazon rating.
 
-## Scatter Plot
-
-![Scatterplot](https://github.com/shuklak13/Amazon_Product_Quality/blob/master/images/scatterplot.png)
-
 ## Test Cases:
 
 1. For delta = 0.1, alpha = 0.3, beta =  0.6
-    -   10 rounds, correlation is 0.0317650552114
-    -   20 rounds, correlation is 0.0347479106453
-    -   30 rounds, correlation is 0.0351023571345
-    -   40 rounds, correlation is 0.0337202571689
-    -   100 rounds, correlation is 0.0360805236603
+    -   10 rounds, correlation is 0.152
+    -   20 rounds, correlation is 0.333
+    -   30 rounds, correlation is 0.353
 2. For delta = 0.1, alpha = 0.5, beta =  0.6
-    -   10 rounds, correlation is 0.0317650552114
-    -   20 rounds, correlation is 0.0273848647798
-    -   30 rounds, correlation is 0.00285424424937
-    -   40 rounds, correlation is 0.0128539720687
-    -   50 rounds, correlation is 0.0270753175784
+    -   10 rounds, correlation is 0.099
+    -   20 rounds, correlation is 0.177
+    -   30 rounds, correlation is 0.193
 3. For delta = 0.05, alpha = 0.3, beta =  0.6
-    -   10 rounds, correlation is 0.0367868565372
-    -   20 rounds, correlation is 0.0419762437656
-    -   30 rounds, correlation is 0.0411693830939
-    -   40 rounds, correlation is 0.0400037235887
+    -   10 rounds, correlation is 0.155
+    -   20 rounds, correlation is 0.330
+    -   30 rounds, correlation is 0.337
 4. For delta = 0.1, alpha = 0.3, beta =  0.3
-    -   10 rounds, correlation is 0.0350938772052
-    -   20 rounds, correlation is 0.0444470982371
-    -   30 rounds, correlation is 0.044057186709
-    -   40 rounds, correlation is 0.0227733827952
+    -   10 rounds, correlation is 0.101
+    -   20 rounds, correlation is 0.167
+    -   30 rounds, correlation is 0.201
 
 
 ## Performance Evaluation
