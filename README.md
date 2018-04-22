@@ -20,6 +20,8 @@ Our testing data was scraped from Amazon's website using Python's `requests` lib
 
 # Mathematics and Time Complexity of the Model
 
+![Probability of MCMC](https://github.com/shuklak13/Amazon_Product_Quality/blob/master/images/PGMs.JPG)
+
 ## Brute Force
 
 A naive, brute force inference of reputation of brands (R) and positivity of users (U) given the sentiment of comments/reviews (S) can be seen below.
