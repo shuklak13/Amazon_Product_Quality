@@ -29,6 +29,20 @@ In this approach, we iteratively sample a positivity for every brand R and every
 
 As we can see, each brand's probability of positivity is independent of all other brands. We must take the product of all reviews in S belonging to a particular brand in R, and we must sum up over both possible values of a brand reputation (positive or negative, so only 2 values). So, the computation of a single brand's reputation in a single iteration of MCMC should be O(n), for the possible number of users who reviewed the product. Since there are m products, the total time complexity should be O(mni), where i is the number of iterations.
 
+## Priors
+
+![Probability of MCMC](https://github.com/shuklak13/Amazon_Product_Quality/blob/master/images/Priors.JPG)
+
+The probabilities P(S|U,R) are dependent on priors alpha, beta, and delta (referred to as "gamma" below).
+
+* "Alpha"=`P(S=1 | U=1, R=0)` is the probability that a positive user rates a negative product positively. It can be interpreted as the strength of a user's positivity on a review's rating.
+* "Beta"=`P(S=1 | U=0, R=1)` is the probability that a negative user rates a positive product positively. It can be interpreted as the strength of a product's quality on a review's rating.
+* "Gamma"=`P(S=0 | U=1, R=1)` is the probability that a positive user rates a positive product negatively. It can be interpreted as a "noise factor".
+
+The paper makes the assumption that `Alpha<Beta` (the product's quality has a greater impact on a review's rating than the user's positivity). However, the paper provides no justificaiton for this assumption, so we ignored it in our analysis.
+
+The values used in the paper are alpha=0.3, beta=0.6, and gamma=0.1, which we used as a "control" or "baseline" for the model. We compared the performance of the model using three alternative parameter configurations (increasing alpha, decreasing beta, and increasing gamma).
+
 
 # Extra Variables
 
