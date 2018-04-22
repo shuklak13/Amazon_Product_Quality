@@ -20,7 +20,7 @@ Our testing data was scraped from Amazon's website using Python's `requests` lib
 
 # Mathematics and Time Complexity of the Model
 
-![Probability of MCMC](https://github.com/shuklak13/Amazon_Product_Quality/blob/master/images/PGMs.JPG)
+![Probability of MCMC](https://github.com/shuklak13/Amazon_Product_Quality/blob/master/images/PGM.JPG)
 
 ## Brute Force
 
@@ -42,7 +42,7 @@ As we can see, each brand's probability of positivity is independent of all othe
 
 ![Probability of MCMC](https://github.com/shuklak13/Amazon_Product_Quality/blob/master/images/Priors.JPG)
 
-The probabilities P(S|U,R) are dependent on priors alpha, beta, and delta (referred to as "gamma" below).
+The probabilities P(S|U,R) are dependent on priors alpha, beta, and delta.
 
 * "Alpha"=`P(S=1 | U=1, R=0)` is the probability that a positive user rates a negative product positively. It can be interpreted as the strength of a user's positivity on a review's rating.
 * "Beta"=`P(S=1 | U=0, R=1)` is the probability that a negative user rates a positive product positively. It can be interpreted as the strength of a product's quality on a review's rating.
@@ -50,7 +50,7 @@ The probabilities P(S|U,R) are dependent on priors alpha, beta, and delta (refer
 
 The paper makes the assumption that `Alpha<Beta` (the product's quality has a greater impact on a review's rating than the user's positivity). However, the paper provides no justificaiton for this assumption, so we ignored it in our analysis.
 
-The values used in the paper are alpha=0.3, beta=0.6, and gamma=0.1, which we used as a "control" or "baseline" for the model. We compared the performance of the model using three alternative parameter configurations (increasing alpha, decreasing beta, and increasing gamma).
+The values used in the paper are alpha=0.3, beta=0.6, and delta=0.1, which we used as a "control" or "baseline" for the model. We compared the performance of the model using three alternative parameter configurations (increasing alpha, decreasing beta, and increasing delta).
 
 
 # Code Execution
@@ -74,7 +74,7 @@ Below is the result given 10 rounds of MCMC iteration.
 
 Below is the result after convergence (28 iterations).
 
-sigma = 0.1 alpha = 0.3 beta = 0.6      
+delta = 0.1 alpha = 0.3 beta = 0.6      
 
     LinregressResult(slope=-0.023732681873079645, intercept=4.0749036003764365, rvalue=-0.06302239272455351, pvalue=0.07196984810324952, stderr=0.013172722412503874)
 
@@ -90,24 +90,24 @@ The model's predicted rating after 40 rounds of MCMC is poorly correlated with t
 
 ## Test Cases:
 
-1. For sigma = 0.1, alpha = 0.3, beta =  0.6
+1. For delta = 0.1, alpha = 0.3, beta =  0.6
     -   10 rounds, correlation is 0.0317650552114
     -   20 rounds, correlation is 0.0347479106453
     -   30 rounds, correlation is 0.0351023571345
     -   40 rounds, correlation is 0.0337202571689
     -   100 rounds, correlation is 0.0360805236603
-2. For sigma = 0.1, alpha = 0.5, beta =  0.6
+2. For delta = 0.1, alpha = 0.5, beta =  0.6
     -   10 rounds, correlation is 0.0317650552114
     -   20 rounds, correlation is 0.0273848647798
     -   30 rounds, correlation is 0.00285424424937
     -   40 rounds, correlation is 0.0128539720687
     -   50 rounds, correlation is 0.0270753175784
-3. For sigma = 0.05, alpha = 0.3, beta =  0.6
+3. For delta = 0.05, alpha = 0.3, beta =  0.6
     -   10 rounds, correlation is 0.0367868565372
     -   20 rounds, correlation is 0.0419762437656
     -   30 rounds, correlation is 0.0411693830939
     -   40 rounds, correlation is 0.0400037235887
-4. For sigma = 0.1, alpha = 0.3, beta =  0.3
+4. For delta = 0.1, alpha = 0.3, beta =  0.3
     -   10 rounds, correlation is 0.0350938772052
     -   20 rounds, correlation is 0.0444470982371
     -   30 rounds, correlation is 0.044057186709
@@ -138,6 +138,6 @@ Completed:
 - [X] Write up a report / demo (~4/18)
 - [X] Create a visualization demonstrating our results
   - [X] Visualize convergence/mixing time and relate it to rounds of MCMC
-  - [X] Evaluate the impact of priors (sigma, alpha, and beta) on model performance ("performance" = speed of mixing time, or accuracy of model)
+  - [X] Evaluate the impact of priors (delta, alpha, and beta) on model performance ("performance" = speed of mixing time, or accuracy of model)
 - [X] Bigger, better dataset
   - [X] [Query real Amazon reviews to evaluate on from the Amazon API](https://python-amazon-product-api.readthedocs.io/en/latest/)
