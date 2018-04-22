@@ -71,9 +71,7 @@ Below is the result after convergence (28 iterations).
 
 sigma = 0.1 alpha = 0.3 beta = 0.6      
 
-    LinregressResult(slope=-0.023732681873079645, intercept=4.0749036003764365, rvalue=-0.06302239272455351, pvalue=0.07196984810324952, stderr=0.013172722412503874)
-
-We had a correlation coefficient of `-0.06302239`.
+We had a correlation coefficient of `0.353`.
 
 It takes 28 rounds of MCMC for "convergence", where convergence is defined as the point in time where the average absolute difference between consecutive computated marginal probabilities of R becomes less than 1%.
 
@@ -86,27 +84,21 @@ The model's predicted rating after 40 rounds of MCMC is poorly correlated with t
 ## Test Cases:
 
 1. For sigma = 0.1, alpha = 0.3, beta =  0.6
-    -   10 rounds, correlation is 0.0317650552114
-    -   20 rounds, correlation is 0.0347479106453
-    -   30 rounds, correlation is 0.0351023571345
-    -   40 rounds, correlation is 0.0337202571689
-    -   100 rounds, correlation is 0.0360805236603
+    -   10 rounds, correlation is 0.152
+    -   20 rounds, correlation is 0.333
+    -   30 rounds, correlation is 0.353
 2. For sigma = 0.1, alpha = 0.5, beta =  0.6
-    -   10 rounds, correlation is 0.0317650552114
-    -   20 rounds, correlation is 0.0273848647798
-    -   30 rounds, correlation is 0.00285424424937
-    -   40 rounds, correlation is 0.0128539720687
-    -   50 rounds, correlation is 0.0270753175784
+    -   10 rounds, correlation is 0.099
+    -   20 rounds, correlation is 0.177
+    -   30 rounds, correlation is 0.193
 3. For sigma = 0.05, alpha = 0.3, beta =  0.6
-    -   10 rounds, correlation is 0.0367868565372
-    -   20 rounds, correlation is 0.0419762437656
-    -   30 rounds, correlation is 0.0411693830939
-    -   40 rounds, correlation is 0.0400037235887
+    -   10 rounds, correlation is 0.155
+    -   20 rounds, correlation is 0.330
+    -   30 rounds, correlation is 0.337
 4. For sigma = 0.1, alpha = 0.3, beta =  0.3
-    -   10 rounds, correlation is 0.0350938772052
-    -   20 rounds, correlation is 0.0444470982371
-    -   30 rounds, correlation is 0.044057186709
-    -   40 rounds, correlation is 0.0227733827952
+    -   10 rounds, correlation is 0.101
+    -   20 rounds, correlation is 0.167
+    -   30 rounds, correlation is 0.201
 
 
 ## Performance Evaluation
