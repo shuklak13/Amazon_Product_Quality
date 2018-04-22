@@ -103,7 +103,7 @@ def MCMCAlgo():
     global prob_U
     
     i = 0
-    while i < 10:
+    while avg_of_abs_diffs(old_prob_R,prob_R) > 0.01:
         old_prob_R = deepcopy(prob_R)
         prob_R = draw_and_sample(R, k, prob_R, "R")
         prob_U = draw_and_sample(U, k, prob_U, "U")

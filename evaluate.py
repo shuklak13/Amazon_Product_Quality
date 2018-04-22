@@ -14,17 +14,17 @@ ratings = {product: ratings[product] for product in ratings if ratings[product] 
 
 product_probability_rating = []
 for product in ratings:
-    product_probability_rating.append((product, 5*probabilities[product], ratings[product]))
-x = array([ppr[1] for ppr in product_probability_rating])
+    product_probability_rating.append((product, 4.0*probabilities[product] +1, ratings[product]))
+x = array([float(ppr[1]) for ppr in product_probability_rating])
 y = array([float(ppr[2]) for ppr in product_probability_rating])
 print(linregress(x,y))
 
 # Correlations
-print ("Correlation", corrcoef(x,y)[0,1])
+print ("Correlation", corrcoef(x,y))
 
 # Scatter Plots 
 plt.scatter(x,y)
-plt.xlabel("x")
-plt.ylabel("y")
-plt.title("Scatter Plot between X and Y")
+plt.xlabel("Predicted Rating")
+plt.ylabel("Actual Rating")
+plt.title("Scatter Plot between Predicted and Actual Rating")
 plt.show()
