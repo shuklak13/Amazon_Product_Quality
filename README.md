@@ -10,6 +10,13 @@ Sentiment analysis is performed by the [Textblob](http://textblob.readthedocs.io
 
 [The original paper](https://dl.acm.org/citation.cfm?id=2492556) uses a much more involved ensemble sentiment analysis algorithm that we excluded in our model due to time constraints. The original paper also has an involved data cleaning phase that filters out brands and users with very few posts, as well as users with too many posts (spammers). We did not include this phase.
 
+## Data
+
+We received our training data from the [University of California San Diego's Amazon dataset](http://jmcauley.ucsd.edu/data/amazon/). In particular, the dataset we used was "reviews_Office_Products_5.json.gz", a set of reviews for office products on Amazon from 2014, but our technique should work on any of the Amazon datasets provided from the University of California San Diego. The dataset is approximately 50,000 reviews, with approximately 700 products. On average there are about 70 reviews per product.
+
+Our testing data was scraped from Amazon's website using Python's `requests` library. We searched for the same products that were in the training set; hence, the number of products in the training set and testing set are about the same. It should be noted that some of the products in the training set are no longer sold on Amazon; hence, the testing set of products is actually slightly smaller than the training set.
+
+
 
 # Mathematics and Time Complexity of the Model
 
@@ -42,11 +49,6 @@ The probabilities P(S|U,R) are dependent on priors alpha, beta, and delta (refer
 The paper makes the assumption that `Alpha<Beta` (the product's quality has a greater impact on a review's rating than the user's positivity). However, the paper provides no justificaiton for this assumption, so we ignored it in our analysis.
 
 The values used in the paper are alpha=0.3, beta=0.6, and gamma=0.1, which we used as a "control" or "baseline" for the model. We compared the performance of the model using three alternative parameter configurations (increasing alpha, decreasing beta, and increasing gamma).
-
-
-# Data
-
-We received our data from the [University of California San Diego's Amazon dataset](http://jmcauley.ucsd.edu/data/amazon/). In particular, the dataset we used was "reviews_Amazon_Instant_Video_5.json.gz", a set of reviews for Amazon Instant Video content, but our technique should work on any of the 5-core datasets they provided.
 
 
 # Code Execution
