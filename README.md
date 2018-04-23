@@ -35,25 +35,43 @@ As we can see, this approach takes superpolynomial time, and is not feasible. We
 
 ## Markov Chain Monte Carlo
 
-In this approach, we iteratively sample a positivity for every brand `R(i+1)` and every user `U(i+1)`, using the previous sample's positivities `R(i)` and `U(i)`,  as well as the sentiments of the reviews `S`. Our Markov Chain is the sequence of samples `R` and `U`, dependent on the previously-drawn values of `R` and `U`. By iteratively sampling via the Markov Chain, we eventually create a sample that approaches that of the 
+In this approach, we iteratively sample a positivity for every brand `R(i+1)` and every user `U(i+1)`, using the previous sample's positivities `R(i)` and `U(i)`,  as well as the sentiments of the reviews `S`. 
+
+Our Markov Chain is the sequence of samples `R` and `U`, dependent on the previously-drawn values of `R` and `U`. By iteratively sampling via the Markov Chain, we eventually create a sample that approaches that of the true population distribution.
 
 The inference equations can be seen below.
 
 ![Probability of MCMC](https://github.com/shuklak13/Amazon_Product_Quality/blob/master/images/P_MCMC.JPG)
 
-As we can see, each brand's probability of positivity is independent of all other brands. We must take the product of all reviews in S belonging to a particular brand in R, and we must sum up over both possible values of a brand reputation (positive or negative, so only 2 values). So, the computation of a single brand's reputation in a single iteration of MCMC should be O(n), for the possible number of users who reviewed the product. Since there are m products, the total time complexity should be O(mni), where i is the number of iterations.
+In a single iteration, for a single brand, we sum over both reputation values `R_i` and multiply over each user in `U`. Thus, the computation takes `O(2n)=O(n)` time.
 
-## Priors
+There are `m` products, each of which is updated every iteration, so the total time complexity of Markov Chain Monte Carlo sampling is `O(mni)`, where i is the number of iterations.
+
+The same logic follows for sampling user positivies.
+
+
+### Parallelized Block-Based MCMC Inference
+
+Notably, the inference computation for some product `i` is independent of all other product. Similarly, the inference computation for some user `j` is independent of all other users. This means that we can run these computations in parallel, which significantly reduces sampling time for MCMC.
+
+The paper's algorithm alternates between sampling `P(R|S,U)` and `P(U|S,R)`, and refers to this as "Parallelized Block-Based MCMC Inference". The algorithm can be seen below.
+
+![Parallelized Block-Based MCMC Inference](https://github.com/shuklak13/Amazon_Product_Quality/blob/master/images/Parallel_Algo.JPG)
+
+
+### Priors
+
+The inference equations above require the calculation of `P(S|R,U)`. The paper provides a prior distribution for this conditional, seen below.
 
 ![Probability of MCMC](https://github.com/shuklak13/Amazon_Product_Quality/blob/master/images/Priors.JPG)
 
 The probabilities P(S|U,R) are dependent on priors alpha, beta, and delta.
 
-* "Alpha"=`P(S=1 | U=1, R=0)` is the probability that a positive user rates a negative product positively. It can be interpreted as the strength of a user's positivity on a review's rating.
-* "Beta"=`P(S=1 | U=0, R=1)` is the probability that a negative user rates a positive product positively. It can be interpreted as the strength of a product's quality on a review's rating.
-* "Gamma"=`P(S=0 | U=1, R=1)` is the probability that a positive user rates a positive product negatively. It can be interpreted as a "noise factor".
+* alpha = `P(S=1 | U=1, R=0)` is the probability that a positive user rates a negative product positively. It can be interpreted as the strength of a user's positivity on a review's rating.
+* beta = `P(S=1 | U=0, R=1)` is the probability that a negative user rates a positive product positively. It can be interpreted as the strength of a product's quality on a review's rating.
+* delta = `P(S=0 | U=1, R=1)` is the probability that a positive user rates a positive product negatively. It can be interpreted as a "noise factor". Note that `P(S=0 | U=1, R=1)` > `P(S=1 | U=0, R=0)`; this assumption states that a positive user is more likely to write a negative review about a bad product than a negative user is to write a positive review about a bad product.
 
-The paper makes the assumption that `Alpha<Beta` (the product's quality has a greater impact on a review's rating than the user's positivity). However, the paper provides no justificaiton for this assumption, so we ignored it in our analysis.
+The paper makes the assumption that alpha < beta (the product's quality has a greater impact on a review's rating than the user's positivity). In other words, the authors assume that a negative user was more likely to give a positive score for a high-quality product than a positive user was to give a negative score for a low-quality product. Although, the paper provides no justificaiton for this assumption, it intuitively made sense, so we adopted it in our work.
 
 The values used in the paper are alpha=0.3, beta=0.6, and delta=0.1, which we used as a "control" or "baseline" for the model. We compared the performance of the model using three alternative parameter configurations (increasing alpha, decreasing beta, and increasing delta).
 
