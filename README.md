@@ -35,7 +35,9 @@ As we can see, this approach takes superpolynomial time, and is not feasible. We
 
 ## Markov Chain Monte Carlo
 
-In this approach, we iteratively sample a positivity for every brand R and every user U, using the previous sample's positivities as well as the sentiments of the reviews. The inference equations can be seen below.
+In this approach, we iteratively sample a positivity for every brand `R(i+1)` and every user `U(i+1)`, using the previous sample's positivities `R(i)` and `U(i)`,  as well as the sentiments of the reviews `S`. Our Markov Chain is the sequence of samples `R` and `U`, dependent on the previously-drawn values of `R` and `U`. By iteratively sampling via the Markov Chain, we eventually create a sample that approaches that of the 
+
+The inference equations can be seen below.
 
 ![Probability of MCMC](https://github.com/shuklak13/Amazon_Product_Quality/blob/master/images/P_MCMC.JPG)
 
@@ -83,21 +85,13 @@ The model's predicted rating after 40 rounds of MCMC is poorly correlated with t
 ## Test Cases:
 
 1. For delta = 0.1, alpha = 0.3, beta =  0.6
-    -   10 rounds, correlation is 0.152
-    -   20 rounds, correlation is 0.333
-    -   30 rounds, correlation is 0.353
+    -   100 rounds, correlation is ___
 2. For delta = 0.1, alpha = 0.5, beta =  0.6
-    -   10 rounds, correlation is 0.099
-    -   20 rounds, correlation is 0.177
-    -   30 rounds, correlation is 0.193
+    -   100 rounds, correlation is ___
 3. For delta = 0.05, alpha = 0.3, beta =  0.6
-    -   10 rounds, correlation is 0.155
-    -   20 rounds, correlation is 0.330
-    -   30 rounds, correlation is 0.337
+    -   100 rounds, correlation is ___
 4. For delta = 0.1, alpha = 0.3, beta =  0.3
-    -   10 rounds, correlation is 0.101
-    -   20 rounds, correlation is 0.167
-    -   30 rounds, correlation is 0.201
+    -   100 rounds, correlation is ___
  
 
 ## Performance Evaluation
