@@ -4,7 +4,7 @@ Our project is based off the paper ["A Probabilistic Graphical Model for Brand R
 
 We aim to produce a similar model to the one described in the paper on an Amazon product review dataset. This dataset is a good fit, because just like in a social network, Amazon has "brands" (products) with "reputations" (5-star ratings) determined by "posts" (reviews) from "users". We can evaluate our model's success by comparing each product's "social brand reputation" with their real Amazon rating.
 
-This model computes P(R|S) and P(U|S), where R is a brand's reputation or a product's rating, U is user positivity, and S is the sentiment of posts or reviews. The model does not compute P(R|U), the probability of a particular user liking a product. In other words, this model only computes the "aggregate" quality of a product, given a corpus of reviews. This model is not a recommendation system. It would be interesting to explore the use of MCMC models in recommendation systems in the future.
+This model computes `P(R|S)` and `P(U|S)`, where `R` is a brand's reputation or a product's rating, `U` is user positivity, and `S` is the sentiment of posts or reviews. The model does not compute `P(R|U)`, the probability of a particular user liking a product. In other words, this model only computes the "aggregate" quality of a product, given a corpus of reviews. This model is not a recommendation system. It would be interesting to explore the use of MCMC models in recommendation systems in the future.
 
 Sentiment analysis is performed by the [Textblob](http://textblob.readthedocs.io/en/dev/index.html) package, which wraps around the [pattern](https://www.clips.uantwerpen.be/pages/pattern-en#sentiment) package created by the CLiPS research center at the University of Antwerp. The sentiment analysis is performed by assigning a sentiment polarity to every adjective in the text and averaging all of the adjective sentiments. This is a very simple model; more advanced models could be trained and tested on [the Amazon Reviews for Sentiment Analysis dataset](https://www.kaggle.com/bittlingmayer/amazonreviews). For simplicity, we assume that Textblob's false positive rate and false negative rate are approximately equal, so that the predicted rating for any given product is not impacted by errors in Textblob's sentiment prediction.
 
@@ -14,14 +14,13 @@ Sentiment analysis is performed by the [Textblob](http://textblob.readthedocs.io
 
 ## Data
 
-We received our training data from the [University of California San Diego's Amazon dataset](http://jmcauley.ucsd.edu/data/amazon/). In particular, the dataset we used was "reviews_Office_Products_5.json.gz", a set of reviews for office products on Amazon from 2014, but our technique should work on any of the Amazon datasets provided from the University of California San Diego. The dataset is approximately 50,000 reviews, with approximately 700 products. On average there are about 70 reviews per product.
+We received our training data from the [University of California San Diego's Amazon dataset](http://jmcauley.ucsd.edu/data/amazon/). In particular, the dataset we used was `reviews_Office_Products_5.json.gz`, a set of reviews for office products on Amazon from 2014, but our technique should work on any of the Amazon datasets provided from the University of California San Diego. The dataset contains approximately 50,000 reviews, with approximately 700 products. On average there are about 70 reviews per product.
 
-Our testing data was scraped from Amazon's website using Python's `requests` library. We searched for the same products that were in the training set; hence, the number of products in the training set and testing set are about the same. It should be noted that some of the products in the training set are no longer sold on Amazon; hence, the testing set of products is actually slightly smaller than the training set.
+Our testing data was scraped from Amazon's website using Python's `requests` library. Our scraping program searched for the same products that were in the training set; hence, the number of products in the training set and testing set are about the same. It should be noted that some of the products in the training set are no longer sold on Amazon; hence, the testing set of products is actually slightly smaller than the training set.
 
 
 
 # Mathematics and Time Complexity of the Model
-
 
 
 ## Brute Force
@@ -30,7 +29,9 @@ A naive, brute force inference of reputation of brands (R) and positivity of use
 
 ![Probability of R given S](https://github.com/shuklak13/Amazon_Product_Quality/blob/master/images/P_R_given_S.JPG)
 
-Assume that there are m brands and n users. Then there are 2^(m+n) possible combinations of brand and user positivities. For each combination, we need to sum the probability of sentiment for each review. The number of reviews could be up to mn (one review per user-brand tuple). So, in total, the brute force computation could take O(mn * 2^(m+n)) time.
+Given that there are m brands and n users, each of which could be "positive" or "negative", we sum over `2^(m+n)` unique combinations of brand and user positivities. For each combination, we need to sum the probability of sentiment for each review. The number of reviews could be up to `mn` (one review per user-brand tuple). So, in total, the brute force computation would take `O(mn * 2^(m+n))` time.
+
+As we can see, this approach takes superpolynomial time, and is not feasible. We reduce the state space that we compute over by instead adopting the Makrov Chain Monte Carlo method.
 
 ## Markov Chain Monte Carlo
 
