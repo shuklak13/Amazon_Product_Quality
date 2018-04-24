@@ -23,7 +23,7 @@ This model computes `P(R|S)` and `P(U|S)`, where `R` is a brand's reputation or 
 
 ## Data
 
-We received our training data from the **[University of California San Diego's Amazon dataset]**(http://jmcauley.ucsd.edu/data/amazon/). In particular, the dataset we used was `reviews_Office_Products_5.json.gz`, a set of reviews for office products on Amazon from 2014, but our technique should work on any of the Amazon datasets provided from the University of California San Diego. The dataset contains approximately **50,000 reviews**, with approximately 700 products. On average there are about 70 reviews per product.
+We received our training data from the **[University of California San Diego's Amazon dataset](http://jmcauley.ucsd.edu/data/amazon/)**. In particular, the dataset we used was `reviews_Office_Products_5.json.gz`, a set of reviews for office products on Amazon from 2014, but our technique should work on any of the Amazon datasets provided from the University of California San Diego. The dataset contains approximately **50,000 reviews**, with approximately 700 products. On average there are about 70 reviews per product.
 
 Our testing data was **scraped from Amazon's website** using Python's `requests` library. Our scraping program searched for the same products that were in the training set; hence, the number of products in the training set and testing set are about the same. It should be noted that some of the products in the training set are no longer sold on Amazon; hence, the testing set of products is actually slightly smaller than the training set.
 
@@ -66,6 +66,8 @@ Notably, the inference computation for some product `i` is independent of all ot
 The paper's algorithm alternates between sampling `P(R|S,U)` and `P(U|S,R)`, and refers to this as "Parallelized Block-Based MCMC Inference". The algorithm can be seen below.
 
 ![Parallelized Block-Based MCMC Inference](https://github.com/shuklak13/Amazon_Product_Quality/blob/master/images/Parallel_Algo.JPG)
+
+Because we now sample from all products simultaneously, the time complexity drops form `O(mni)` to `O(ni)`.
 
 
 ### Priors
