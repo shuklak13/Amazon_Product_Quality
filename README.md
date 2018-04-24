@@ -48,7 +48,7 @@ In this approach, we iteratively sample a positivity for every brand `R(i+1)` an
 
 Our Markov Chain is the sequence of samples `R` and `U`, dependent on the previously-drawn values of `R` and `U`. By iteratively sampling via the Markov Chain, we eventually create a sample that approaches that of the true population distribution.
 
-The inference equations can be seen below.
+The inference equations (derived from Bayes Rule, applied on the structure of our Bayesian Net) can be seen below.
 
 ![Probability of MCMC](https://github.com/shuklak13/Amazon_Product_Quality/blob/master/images/P_MCMC.JPG)
 
@@ -57,17 +57,6 @@ In a single iteration, for a single brand, we sum over both reputation values `R
 There are `m` products, each of which is updated every iteration, so the total time complexity of Markov Chain Monte Carlo sampling is `O(mni)`, where i is the number of iterations.
 
 The same logic follows for sampling user positivies.
-
-
-### Parallelized Block-Based MCMC Inference
-
-Notably, the inference computation for some product `i` is independent of all other product. Similarly, the inference computation for some user `j` is independent of all other users. This means that we can run these computations in parallel, which significantly reduces sampling time for MCMC.
-
-The paper's algorithm alternates between sampling `P(R|S,U)` and `P(U|S,R)`, and refers to this as "Parallelized Block-Based MCMC Inference". The algorithm can be seen below.
-
-![Parallelized Block-Based MCMC Inference](https://github.com/shuklak13/Amazon_Product_Quality/blob/master/images/Parallel_Algo.JPG)
-
-Because we now sample from all products simultaneously, the time complexity drops form `O(mni)` to `O(ni)`.
 
 
 ### Priors
@@ -85,6 +74,18 @@ The probabilities P(S|U,R) are dependent on priors alpha, beta, and delta.
 The paper makes the assumption that alpha < beta (the product's quality has a greater impact on a review's rating than the user's positivity). In other words, the authors assume that a negative user was more likely to give a positive score for a high-quality product than a positive user was to give a negative score for a low-quality product. Although, the paper provides no justification for this assumption, it intuitively made sense, so we adopted it in our work.
 
 The values used in the paper are alpha=0.3, beta=0.6, and delta=0.1, which we used as a "control" or "baseline" for the model. We compared the performance of the model using three alternative parameter configurations (increasing alpha, decreasing beta, and increasing delta).
+
+
+### Parallelized Block-Based MCMC Inference
+
+Notably, the inference computation for some product `i` is independent of all other product. Similarly, the inference computation for some user `j` is independent of all other users. This means that we can run these computations in parallel, which significantly reduces sampling time for MCMC.
+
+The paper's algorithm alternates between sampling `P(R|S,U)` and `P(U|S,R)`, and refers to this as "Parallelized Block-Based MCMC Inference". The algorithm can be seen below.
+
+![Parallelized Block-Based MCMC Inference](https://github.com/shuklak13/Amazon_Product_Quality/blob/master/images/Parallel_Algo.JPG)
+
+Because we now sample from all products simultaneously, the time complexity drops form `O(mni)` to `O(ni)`.
+
 
 
 # Code Execution
