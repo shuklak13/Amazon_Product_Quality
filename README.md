@@ -135,13 +135,13 @@ paramter setting: sigma = 0.1 alpha = 0.3 beta = 0.6
 <b> Test Cases </b>
 
 1. For delta = 0.1, alpha = 0.3, beta =  0.6
-    -   100 rounds, correlation is 0.353
+    -   100 rounds, correlation is -0.353
 2. For delta = 0.1, alpha = 0.5, beta =  0.6
-    -   100 rounds, correlation is 0.193
+    -   100 rounds, correlation is -0.193
 3. For delta = 0.05, alpha = 0.3, beta =  0.6
-    -   100 rounds, correlation is 0.337
+    -   100 rounds, correlation is -0.337
 4. For delta = 0.1, alpha = 0.3, beta =  0.3
-    -   100 rounds, correlation is 0.201
+    -   100 rounds, correlation is -0.201
  
 
 ## Performance Evaluation
