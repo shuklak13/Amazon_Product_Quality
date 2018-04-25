@@ -106,9 +106,9 @@ In the paper, authors compare results with two existing publicly available ranki
 For us, because the dataset are so huge, we only did experiment on products of "Office Supplies" category. We compare the "reputation" with the <b>actual average rating</b>, <b>number of review</b> and <b>product ranking</b> from Amazon website. We first extract all product IDs from dataset and then build a "web scraper" to retrieve information from corresponding products.
 
 # Current Results
-paramter setting: sigma = 0.1 alpha = 0.3 beta = 0.6
+paramter setting: delta = 0.1 alpha = 0.3 beta = 0.6
 
-- sigma - probabilities that a positive user rates a positive product negatively; "noise factor"
+- delta - probabilities that a positive user rates a positive product negatively; "noise factor"
 - alpha - probabilities that a positive user rates a negative product positively
 - beta  - probabilities that a negative user rates a positive product positively
 
@@ -132,7 +132,7 @@ paramter setting: sigma = 0.1 alpha = 0.3 beta = 0.6
 | Up-to-date data                           | Data is collected from May 1996 to July 2014|
 
 
-<b> Test Cases </b>
+<b> Influence of parameters </b>
 
 1. For delta = 0.1, alpha = 0.3, beta =  0.6
     -   100 rounds, correlation is -0.353
