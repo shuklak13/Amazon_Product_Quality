@@ -106,13 +106,18 @@ In the paper, authors compare results with two existing publicly available ranki
 For us, because the dataset are so huge, we only did experiment on products of "Office Supplies" category. We compare the "reputation" with the <b>actual average rating</b>, <b>number of review</b> and <b>product ranking</b> from Amazon website. We first extract all product IDs from dataset and then build a "web scraper" to retrieve information from corresponding products.
 
 # Current Results
-paramter setting: delta = 0.1 alpha = 0.3 beta = 0.6
+paramter setting: sigma = 0.1 alpha = 0.3 beta = 0.6
+
+- sigma - probabilities that a positive user rates a positive product negatively; "noise factor"
+- alpha - probabilities that a positive user rates a negative product positively
+- beta  - probabilities that a negative user rates a positive product positively
 
 | Features          | Correlation                   | Round to converge* |
 |:-----------------:|:-----------------------------:|:------------------:|
 |Average Rating     |0.0625|28|
 |Number of review   |0.0348|32|
-|Product Ranking    || |
+|Product Ranking    |0.353| 36|
+
 \* Convergence is defined as the point in time where the average absolute difference between consecutive computated marginal probabilities of R becomes less than 1%
 
 <b> Observation and Interpretation</b>: 
