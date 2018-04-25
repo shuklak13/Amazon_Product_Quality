@@ -97,22 +97,37 @@ Because we now sample from all products simultaneously, the time complexity drop
 If you would like to run all the Python processes in a single pipeline, you can run `python pipeline.py`.
 
 
+# Model Evaluation
+In the paper, authors compare results with two existing publicly available ranking systems: IMDB movie ranking and top business schools ranked by the US News & World Report and they find high correlations between them. They also compare reputation with number of IMDB votes and the box office revenue; however, they show weak correlation.
+
+![Correlation](https://github.com/shuklak13/Amazon_Product_Quality/blob/master/images/paper_result.JPG)
+
+
+For us, because the dataset are so huge, we only did experiment on products of "Office Supplies" category. We compare the "reputation" with the <b>actual average rating</b>, <b>number of review</b> and <b>product ranking</b> from Amazon website. We first extract all product IDs from dataset and then build a "web scraper" to retrieve information from corresponding products.
+
 # Current Results
+paramter setting: delta = 0.1 alpha = 0.3 beta = 0.6
 
-The below results are from a linear regression between the predicted probability that an arbitrary users would like an item, and the actual Amazon review score. This was done on 708 scraped products from the category "Office Supplies". Not all products in the dataset (which was from 2014) are still present on the Amazon website.
-    
+| Features          | Correlation                   | Round to converge* |
+|:-----------------:|:-----------------------------:|:------------------:|
+|Average Rating     |0.0625|28|
+|Number of review   |0.0348|32|
+|Product Ranking    || |
+\* Convergence is defined as the point in time where the average absolute difference between consecutive computated marginal probabilities of R becomes less than 1%
 
-Below is the result after convergence (28 iterations).
+<b> Observation and Interpretation</b>: 
 
-delta = 0.1 alpha = 0.3 beta = 0.6      
+1. From the result, we see that "Average Rating" and "Number of review" are not good indicators of reputation. This makes sense because many sellers in Amazon hire agency to boost their ratings and number of reviewers so they cannot represent brand reputation, this point is consistent with paper.
+2. Generally, in comparison with performance of paper, our performance is quite low. This fact can be explained by following points
+   
+| Paper                                     | Our work                   | 
+|:-----------------------------------------:|:--------------------------:|
+| Put a lot of effort on data cleaning      | No data cleaning           |
+| Manually check sentiment analysis         | Use python library without manually checking|
+| Up-to-date data                           | Data is collected from May 1996 to July 2014|
 
-We had a correlation coefficient of `0.353`.
 
-It takes 28 rounds of MCMC for "convergence", where convergence is defined as the point in time where the average absolute difference between consecutive computated marginal probabilities of R becomes less than 1%.
-
-The model's predicted rating after 40 rounds of MCMC is poorly correlated with the true 5-star ratings from the Amazon website. There are multiple reasons why this could be the case. Our sentiment analysis model may have poorly predicted a review's sentiment. Perhaps users factor in other confounding variables into their ratings that are independent of their enjoyment of the movie, such as the movie's prestige or its current Amazon rating.
-
-## Test Cases:
+<b> Test Cases </b>
 
 1. For delta = 0.1, alpha = 0.3, beta =  0.6
     -   100 rounds, correlation is 0.353
