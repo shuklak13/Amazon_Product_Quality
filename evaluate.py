@@ -10,7 +10,7 @@ with open("pkl/product_probabilities.pkl", 'rb') as f:
 with open("pkl/amzn_ratings.pkl", 'rb') as f:
     ratings = pickle.load(f)
 
-ratings = {product: ratings[product] for product in ratings if ratings[product] is not ''}
+ratings = {product: ratings[product] for product in ratings if ratings[product] is not None}
 
 product_probability_rating = []
 for product in ratings:
