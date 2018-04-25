@@ -116,7 +116,7 @@ paramter setting: sigma = 0.1 alpha = 0.3 beta = 0.6
 |:-----------------:|:-----------------------------:|:------------------:|
 |Average Rating     |0.0625|28|
 |Number of review   |0.0348|32|
-|Product Ranking    |0.353| 36|
+|Product Ranking    |-0.353| 36|
 
 \* Convergence is defined as the point in time where the average absolute difference between consecutive computated marginal probabilities of R becomes less than 1%
 
