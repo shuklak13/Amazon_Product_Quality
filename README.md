@@ -2,7 +2,7 @@
 
 Our project is based off the paper **["A Probabilistic Graphical Model for Brand Reputation Assessment in Social Networks"](https://dl.acm.org/citation.cfm?id=2492556)**, written by researchers at **Northwestern University** and presented at the 2013 IEEE/ACM International Conference on Advances in Social Networks Analysis and Mining. **The paper proposes a probabilistic graphical model to measure "brand reputation" on a social network.** The paper uses a **Facebook dataset**, where "brands" include public pages, such as Barack Obama or Starbucks. Along with social brand reputation, the proposed model computes "user positivities", a metric of how positive or negative a user's posts are on the social network.
 
- Both **social brand reputation and user positivities are modeled as hidden variables** whose values are inferred from the **sentiment of social media posts, which act as the observed variable**. The inference is conducted via Markov Chain Monte Carlo sampling.
+ Both **social brand reputation and user positivities are modeled as hidden variables** whose values are inferred from the **sentiment of social media posts, which act as the observed variable**. The **inference is conducted via Markov Chain Monte Carlo sampling**.
 
 We aim to produce a similar model to the one described in the paper on an Amazon product review dataset. This dataset is a good fit, because just like in a social network, Amazon has "brands" (products) with "reputations" (5-star ratings) determined by "posts" (reviews) from "users". We can evaluate our model's success by comparing each product's "social brand reputation" with their real Amazon rating.
 
