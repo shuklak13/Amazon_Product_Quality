@@ -1,3 +1,10 @@
+# Team
+
+* Karan Shukla
+* Ashwin Kumar
+* Linh Truong Hoang
+* Viswa Teja
+
 # Description of Project
 
 Our project is based off the paper **["A Probabilistic Graphical Model for Brand Reputation Assessment in Social Networks"](https://dl.acm.org/citation.cfm?id=2492556)**, written by researchers at **Northwestern University** and presented at the 2013 IEEE/ACM International Conference on Advances in Social Networks Analysis and Mining. **The paper proposes a probabilistic graphical model to measure "brand reputation" on a social network.** The paper uses a **Facebook dataset**, where "brands" include public pages, such as Barack Obama or Starbucks. Along with social brand reputation, the proposed model computes "user positivities", a metric of how positive or negative a user's posts are on the social network.
